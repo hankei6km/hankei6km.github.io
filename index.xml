@@ -6,10 +6,21 @@
     <description>Recent content on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sat, 27 Jun 2020 08:38:48 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jun 2020 08:44:47 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Raspberry Pi Zero WH とスパイスボトル</title>
+      <link>https://hankei6km.github.io/posts/2020-06-zero-bottole/</link>
+      <pubDate>Sat, 27 Jun 2020 08:44:47 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-06-zero-bottole/</guid>
+      <description>&lt;p&gt;スマホを公衆無線 LAN へ接続するときに間に挟む安全な Wi-Fi 中継器的なものが欲しいなと思案していたところ、Raspberry Pi Zero WH を 100 均のスパイスボトルに入れてみたら、なんとなく良い感じで雑に持ち歩けるサーバーになりました。&lt;/p&gt;
+
+&lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-06-zero-bottole/zero_bottole_1.jpg&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-06-zero-bottole/zero_bottole_1_hubfd08f81f12ad77388ae49041bbbb703_2088484_600x0_resize_q75_lanczos.jpg&#34;&gt;&lt;/a&gt;&lt;/figure&gt;</description>
+    </item>
     
     <item>
       <title>First Commit</title>
