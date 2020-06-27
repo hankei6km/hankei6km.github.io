@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SSD: SHORT SLOW DISTANCE</title>
+    <link>https://hankei6km.github.io/</link>
+    <description>Recent content on SSD: SHORT SLOW DISTANCE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sat, 27 Jun 2020 08:38:48 +0000</lastBuildDate>
+    
+	<atom:link href="https://hankei6km.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>First Commit</title>
+      <link>https://hankei6km.github.io/posts/2020-06-first-commit/</link>
+      <pubDate>Sat, 27 Jun 2020 08:38:48 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-06-first-commit/</guid>
+      <description>最初のコミット
+何かしらアウトプットしたいときに利用する予定。</description>
+    </item>
+    
+  </channel>
+</rss>
