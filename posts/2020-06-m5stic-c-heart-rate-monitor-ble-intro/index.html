@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>M5StickC で BLE対応のスティックタイプな心拍計(概要) | SSD: SHORT SLOW DISTANCE</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+      <link rel="stylesheet" href="/css/custom.css">
+    
+      <link rel="stylesheet" href="/css/syntax-monokai.css">
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="M5StickC で BLE対応のスティックタイプな心拍計(概要)" />
+<meta property="og:description" content="ジョギングの合間などに手軽に心拍数を確認できるデバイスが欲しいなと思っていたところ、M5StickC をお安くゲットできる機会があったので自作してみました(本来ならスマートウォッチ的なものの出番ですが、作ってみたくなってしまったのもは仕方ないということで :-)。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/" />
+<meta property="article:published_time" content="2020-06-29T15:19:21&#43;00:00"/>
+<meta property="article:modified_time" content="2020-06-29T15:19:21&#43;00:00"/>
+
+<meta itemprop="name" content="M5StickC で BLE対応のスティックタイプな心拍計(概要)">
+<meta itemprop="description" content="ジョギングの合間などに手軽に心拍数を確認できるデバイスが欲しいなと思っていたところ、M5StickC をお安くゲットできる機会があったので自作してみました(本来ならスマートウォッチ的なものの出番ですが、作ってみたくなってしまったのもは仕方ないということで :-)。
+
+">
+
+
+<meta itemprop="datePublished" content="2020-06-29T15:19:21&#43;00:00" />
+<meta itemprop="dateModified" content="2020-06-29T15:19:21&#43;00:00" />
+<meta itemprop="wordCount" content="111">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="M5StickC で BLE対応のスティックタイプな心拍計(概要)"/>
+<meta name="twitter:description" content="ジョギングの合間などに手軽に心拍数を確認できるデバイスが欲しいなと思っていたところ、M5StickC をお安くゲットできる機会があったので自作してみました(本来ならスマートウォッチ的なものの出番ですが、作ってみたくなってしまったのもは仕方ないということで :-)。
+
+"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        SSD: SHORT SLOW DISTANCE
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/&amp;text=M5StickC%20%e3%81%a7%20BLE%e5%af%be%e5%bf%9c%e3%81%ae%e3%82%b9%e3%83%86%e3%82%a3%e3%83%83%e3%82%af%e3%82%bf%e3%82%a4%e3%83%97%e3%81%aa%e5%bf%83%e6%8b%8d%e8%a8%88%28%e6%a6%82%e8%a6%81%29" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/&amp;title=M5StickC%20%e3%81%a7%20BLE%e5%af%be%e5%bf%9c%e3%81%ae%e3%82%b9%e3%83%86%e3%82%a3%e3%83%83%e3%82%af%e3%82%bf%e3%82%a4%e3%83%97%e3%81%aa%e5%bf%83%e6%8b%8d%e8%a8%88%28%e6%a6%82%e8%a6%81%29" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">M5StickC で BLE対応のスティックタイプな心拍計(概要)</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-06-29T15:19:21Z">June 29, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>ジョギングの合間などに手軽に心拍数を確認できるデバイスが欲しいなと思っていたところ、M5StickC をお安くゲットできる機会があったので自作してみました(本来ならスマートウォッチ的なものの出番ですが、作ってみたくなってしまったのもは仕方ないということで :-)。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_intro.jpg"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_intro_hu0658874efc6a1f8503cf77d514633464_1665886_600x0_resize_q75_lanczos.jpg"></a></figure>
+
+<p>※ 昨今の情勢的に念のために書いておきますが、上記の機器は健康状態を厳密に判断するような用途では使えません。趣味の範囲で使うためのものです。</p>
+
+<h2 id="動作">動作</h2>
+
+<p>指をセンサーに乗せると計測を開始し、BLE接続されていれば通知を行います(スタンドアローンで使うこともできます)。</p>
+
+<figure><img src="heart_rate_monitor_ble_com.gif"></figure>
+
+<p>上の画像は動作を見やすくするためにケースから取り出していますが、普段はケースに入れた状態で使っています。(体調にもよりますが)センサー部分をラフな感じで握りこむだけでもそれなりに計測できます。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_grip.jpg"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_grip_hu6401abd4d1a2c726c9ab8003a7c40fab_1843720_600x0_resize_q75_lanczos.jpg"></a></figure>
+
+<p>BLE の(初回)ペアリングは PIN による認証が必要となっています。PIN の確認や設定については <a href="https://github.com/hankei6km/HeartRateMonitorBLE/blob/master/README.md">README</a> を参照してください。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_bonding.png"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_bonding_huab4d209457ebb67299d8f4e8c6ae0cf8_206855_600x0_resize_lanczos_2.png"></a></figure>
+
+<h2 id="ハードウェア">ハードウェア</h2>
+
+<h3 id="センサーモジュール">センサーモジュール</h3>
+
+<p>「電子工作 心拍」「Arduino 心拍」等で検索すると RPR-220 を使ったものがいくつかヒットしたので、その中でも一番シンプルな「<a href="https://deviceplus.jp/hobby/entry015/">Arduinoでパーツやセンサを使ってみよう～フォトリフレクタ編 | Device Plus - デバプラ</a>」を参考にしてみました。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_module.jpg"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_module_hu5aaaae7742bd22e0d46722f4f1609592_267521_600x0_resize_q75_lanczos.jpg"></a></figure>
+
+<p>回路図は Fritzing で作成してみましたが使い方をあまり理解できていないので、こういった感じで良いのかどうか。。。(右下の LED1 と Q1 が RPR-220 だと思ってください)。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_circuit.png"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_circuit_huc6f1b5659ec699c9afd65246b954994c_32233_600x0_resize_lanczos_2.png"></a></figure>
+
+<p>センサー出力の増幅についてはハードルが高そうだったのでソフトの方で頑張ることにしました。</p>
+
+<h3 id="ケース">ケース</h3>
+
+<p>最初は 100 均で購入したピルケース(おそらく「山田化学 セブンデイズピルケース」)をホットナイフで切り出したものを使ってみたのですが、持ち歩くには接続部分の強度や防水性等に不安があったので利用は見送りました。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_prototype.jpg"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_prototype_hu17aa448f11a545bed198f42b9aa50ec9_1747950_600x0_resize_q75_lanczos.jpg"></a></figure>
+
+<p>少し試行錯誤した結果「やはり本体ごとケースに入れてしまう方が安心できる」ということになり、いまは無印良品の「<a href="https://www.muji.com/jp/ja/store/cmdty/detail/4945247420685">ポリプロピレン印鑑ケース クリア・朱肉付</a>」にまるごと入れています。センサー部分は加工しないとダメかと思っていたのですが、意外とそのままでも大丈夫でした。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_case.jpg"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_case_hu00792cc23836ad5cc8f01bfd6d3eed83_2005924_600x0_resize_q75_lanczos.jpg"></a></figure>
+
+<p>内部はレイアウト的に少し余白がありますが、M5StickC がピッタリとはまっているので、ポケットに入れてジョギングしてもほとんどズレません。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_open.jpg"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_open_hu34d22f4ab9fb7d86ba39535ecab6c590_1827465_600x0_resize_q75_lanczos.jpg"></a></figure>
+
+<p>と、大丈夫そうなところだけ書きましたが、以下のような難点もあります。</p>
+
+<ul>
+<li>日中の屋外ではディスプレイがほぼ見えない。</li>
+<li>各ボタンと USB ポートにアクセスしにくい。</li>
+</ul>
+
+<h2 id="ソフトウェア">ソフトウェア</h2>
+
+<h3 id="センサー出力の読み取り">センサー出力の読み取り</h3>
+
+<p>基本的には <code>analogRead</code> で値を読み取っているだけですが、ハードウェアで増幅しない方法を選択したので、心拍数を計測する前に少し加工しています。</p>
+
+<ul>
+<li>波形のピーク部分を取りこぼさないように短い間隔で読み取る。</li>
+<li>細かく振れやすくなるので移動平均で滑らかにする。</li>
+<li>ただし、運動中には心拍数(波形のピーク)は増えるので過度に滑らかにはさせない。</li>
+</ul>
+
+<h3 id="波形のピーク">波形のピーク</h3>
+
+<p>上記の前処理をしても細かい振れが残ったり階段状になったりするので、下図のような感じで波形のピークをハンドリングするようにしてみました(実際にはもう少し判定処理等が入っています)。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/peak_handler1.png"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/peak_handler1_hu86f5a8fc251044824483f1818a79ed77_40048_600x0_resize_lanczos_2.png"></a></figure>
+
+<h3 id="心拍の算出">心拍の算出</h3>
+
+<p>有効な心拍が一定間隔以上計測できている間は算出するようにしています。
+また、測定中に身体を動かすと波形が変動することから、 「ありえないような間隔での心拍」が出た場合は「無視する」「直近の有効な計測値から補正する」等の処理も入れてあります。
+ただし、補正の処理は「なんとなく」で組んだので、市販の血圧計等の値と大きくズレるときがあります(脈が飛んだ時にも補正してしまうのが良くないようです)。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate.png"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_hucbf9364830c8cf697dc6401a98a9414b_55658_600x0_resize_lanczos_2.png"></a></figure>
+
+<h3 id="プロッター">プロッター</h3>
+
+<p>元々はデバッグ用として Arduino IDE のプロッターのようなものを表示させていたのですが、計測できているかの目安になるので残しました(動きがある方が面白いというのもあります :-)。</p>
+
+<h3 id="表示全般">表示全般</h3>
+
+<p><code>TFT_eSPI</code> でスクロールできないか調べているときに M5Stack 用の UI を構築するライブラリーを見かけた気がするのですが、いざ使おうと思って探してみると見つからなかったので、とりあえず各種表示を部品化するようなものを作ってみました。
+が、後付けで <code>TFT_eSprite</code> 経由でスクリーンショットを取得できるようにしてみたら、ちょっとごちゃごちゃしてしまいました。</p>
+
+
+
+<figure>
+    <img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/ss.gif" style="width:320px"></figure>
+
+<h3 id="ble">BLE</h3>
+
+<p>健康状態の情報を送信することになるので、とりあえずは
+「<a href="https://github.com/nkolban/esp32-snippets/blob/master/cpp_utils/tests/BLETests/Arduino/security/StaticPIN/StaticPIN.ino">esp32-snippets/StaticPIN.ino at master · nkolban/esp32-snippets · GitHub</a>」
+ 等を参考に PIN による認証はするようにしました。が、セキュリティ的に問題がないかはいまいち自信はありません。</p>
+
+<p>また、 <a href="https://webbluetoothcg.github.io/demos/heart-rate-sensor/">Heart Rate Sensor Demo</a> からは利用できていますが、他のアプリからどの程度使えるかは不明です(Runtastic は真っ先に試したのですが、いまのところうまくいっていません。。。)。</p>
+
+<figure><a href="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/ble03.png"><img src="/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/ble03_hubd8ee91cdd57ba88cdff0cf1dfc049b2_78446_400x0_resize_lanczos_2.png"></a></figure>
+
+<h2 id="リポジトリ">リポジトリ</h2>
+
+<p>ソースコードのリポジトリです。</p>
+
+<ul>
+<li><a href="https://github.com/hankei6km/HeartRateMonitorBLE">GitHub - hankei6km/HeartRateMonitorBLE: BLE 対応心拍計 (M5StickC使用)</a></li>
+</ul>
+
+<h2 id="実際に使ってみる">実際に使ってみる</h2>
+
+<p>何度かジョギングで使ってみましたがパラメーター等の調整が必要そうなので、その辺がまとまったら別途アップする予定です。</p><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l"><div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#動作">動作</a></li>
+<li><a href="#ハードウェア">ハードウェア</a>
+<ul>
+<li><a href="#センサーモジュール">センサーモジュール</a></li>
+<li><a href="#ケース">ケース</a></li>
+</ul></li>
+<li><a href="#ソフトウェア">ソフトウェア</a>
+<ul>
+<li><a href="#センサー出力の読み取り">センサー出力の読み取り</a></li>
+<li><a href="#波形のピーク">波形のピーク</a></li>
+<li><a href="#心拍の算出">心拍の算出</a></li>
+<li><a href="#プロッター">プロッター</a></li>
+<li><a href="#表示全般">表示全般</a></li>
+<li><a href="#ble">BLE</a></li>
+</ul></li>
+<li><a href="#リポジトリ">リポジトリ</a></li>
+<li><a href="#実際に使ってみる">実際に使ってみる</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://hankei6km.github.io/" >
+    &copy;  SSD: SHORT SLOW DISTANCE 2020 
+  </a>
+    <div>
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

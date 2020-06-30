@@ -6,10 +6,21 @@
     <description>Recent content in Posts on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sat, 27 Jun 2020 08:44:47 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jun 2020 15:19:21 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>M5StickC で BLE対応のスティックタイプな心拍計(概要)</title>
+      <link>https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/</link>
+      <pubDate>Mon, 29 Jun 2020 15:19:21 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/</guid>
+      <description>&lt;p&gt;ジョギングの合間などに手軽に心拍数を確認できるデバイスが欲しいなと思っていたところ、M5StickC をお安くゲットできる機会があったので自作してみました(本来ならスマートウォッチ的なものの出番ですが、作ってみたくなってしまったのもは仕方ないということで :-)。&lt;/p&gt;
+
+&lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_intro.jpg&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/heart_rate_monitor_ble_intro_hu0658874efc6a1f8503cf77d514633464_1665886_600x0_resize_q75_lanczos.jpg&#34;&gt;&lt;/a&gt;&lt;/figure&gt;</description>
+    </item>
     
     <item>
       <title>Raspberry Pi Zero WH とスパイスボトル</title>
