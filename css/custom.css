@@ -7,3 +7,11 @@
   margin-bottom: 1em;
   margin-left: 1em;
 }
+
+code {
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(22,26,30,.05);
+    border-radius: 6px;
+}

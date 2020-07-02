@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>PlatformIO で RFC 2217 を利用したマイコンボードへのリモート接続 | SSD: SHORT SLOW DISTANCE</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+      <link rel="stylesheet" href="/css/custom.css">
+    
+      <link rel="stylesheet" href="/css/syntax-monokai.css">
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="PlatformIO で RFC 2217 を利用したマイコンボードへのリモート接続" />
+<meta property="og:description" content="M5StickC用の開発は PlatformIO &#43; Visual Studio Code(Remote - Container) で行っているのですが、pio コマンドをコンテナ上で実行した場合、ほとんどの場合で M5StickC (マイコンボード)への接続経路(ポート)が無いため、アップロードやモニターが出来ないことになります。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hankei6km.github.io/posts/2020-07-platformio-port-rfc2217/" />
+<meta property="article:published_time" content="2020-07-02T16:14:07&#43;00:00"/>
+<meta property="article:modified_time" content="2020-07-02T16:14:07&#43;00:00"/>
+
+<meta itemprop="name" content="PlatformIO で RFC 2217 を利用したマイコンボードへのリモート接続">
+<meta itemprop="description" content="M5StickC用の開発は PlatformIO &#43; Visual Studio Code(Remote - Container) で行っているのですが、pio コマンドをコンテナ上で実行した場合、ほとんどの場合で M5StickC (マイコンボード)への接続経路(ポート)が無いため、アップロードやモニターが出来ないことになります。
+
+">
+
+
+<meta itemprop="datePublished" content="2020-07-02T16:14:07&#43;00:00" />
+<meta itemprop="dateModified" content="2020-07-02T16:14:07&#43;00:00" />
+<meta itemprop="wordCount" content="432">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PlatformIO で RFC 2217 を利用したマイコンボードへのリモート接続"/>
+<meta name="twitter:description" content="M5StickC用の開発は PlatformIO &#43; Visual Studio Code(Remote - Container) で行っているのですが、pio コマンドをコンテナ上で実行した場合、ほとんどの場合で M5StickC (マイコンボード)への接続経路(ポート)が無いため、アップロードやモニターが出来ないことになります。
+
+"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        SSD: SHORT SLOW DISTANCE
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://hankei6km.github.io/posts/2020-07-platformio-port-rfc2217/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://hankei6km.github.io/posts/2020-07-platformio-port-rfc2217/&amp;text=PlatformIO%20%e3%81%a7%20RFC%202217%20%e3%82%92%e5%88%a9%e7%94%a8%e3%81%97%e3%81%9f%e3%83%9e%e3%82%a4%e3%82%b3%e3%83%b3%e3%83%9c%e3%83%bc%e3%83%89%e3%81%b8%e3%81%ae%e3%83%aa%e3%83%a2%e3%83%bc%e3%83%88%e6%8e%a5%e7%b6%9a" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://hankei6km.github.io/posts/2020-07-platformio-port-rfc2217/&amp;title=PlatformIO%20%e3%81%a7%20RFC%202217%20%e3%82%92%e5%88%a9%e7%94%a8%e3%81%97%e3%81%9f%e3%83%9e%e3%82%a4%e3%82%b3%e3%83%b3%e3%83%9c%e3%83%bc%e3%83%89%e3%81%b8%e3%81%ae%e3%83%aa%e3%83%a2%e3%83%bc%e3%83%88%e6%8e%a5%e7%b6%9a" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">PlatformIO で RFC 2217 を利用したマイコンボードへのリモート接続</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-07-02T16:14:07Z">July 2, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>M5StickC用の開発は <a href="https://platformio.org/">PlatformIO</a> + <a href="https://code.visualstudio.com/">Visual Studio Code</a>(<a href="https://code.visualstudio.com/docs/remote/containers">Remote - Container</a>) で行っているのですが、<code>pio</code> コマンドをコンテナ上で実行した場合、ほとんどの場合で M5StickC (マイコンボード)への接続経路(ポート)が無いため、アップロードやモニターが出来ないことになります。</p>
+
+<figure><a href="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_intro.png"><img src="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_intro_hu59c97bde48524349e844aea5771480cb_49249_600x0_resize_lanczos_2.png"></a></figure>
+
+<p>解決方法はいくつかあるのですが、 PlatformIO では多くの接続方法が用意されているので、今回はその中からRFC 2217 を利用することにしました。</p>
+
+<h2 id="usb-接続できる-pc">USB 接続できる PC</h2>
+
+<p>USB ポートが付いていて Python が動く環境ならば、 RFC 2217 用のサーバー PC を別途用意する <strong>必要はなく</strong> 、ローカル PCや Docker Host を利用しても問題はないと思います。</p>
+
+<figure><a href="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_usb_port.png"><img src="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_usb_port_hub8ac8578d35b0e5aaf93e4fd2b61fe1d_48741_600x0_resize_lanczos_2.png"></a></figure>
+
+<p>なお、今回は PC に Raspbian Buster(現 <a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/">Raspberry Pi OS</a>) をインストールしている場合での手順を記載していますが、他の環境でもおおよそ同じ手順でいけると思います。</p>
+
+<h2 id="マイコンボードを接続">マイコンボードを接続</h2>
+
+<p>PC の USB ポートに M5StickC(マイコンボード) を接続し、接続状態を確認します。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ lsusb
+Bus 001 Device 002: ID 0403:6001 Future Technology Devices International, Ltd FT232 Serial (UART) IC
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+$ ls /dev/ttyUSB*
+/dev/ttyUSB0</code></pre></div>
+
+<figure><a href="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_board.png"><img src="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_board_hub8ac8578d35b0e5aaf93e4fd2b61fe1d_34265_600x0_resize_lanczos_2.png"></a></figure>
+
+<h2 id="pyserial">pySerial</h2>
+
+<p>PlatformIO で RFC 2217 を使う場合、pySerial を利用するのがおそらく一番簡単です(USB接続している PC に PlatformIO Coreをインストールしてあるならば、この手順はスキップできます)</p>
+
+<p>Raspbian Buster の Python は 2 系がデフォルトですが、今回は Python3 用の <code>python3-serial</code> をインストールします。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console"> $ sudo apt install python3-serial</code></pre></div>
+
+<figure><a href="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_serial.png"><img src="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_serial_hu3be4ecf295ce8c005121c15c05c2fa31_36862_600x0_resize_lanczos_2.png"></a></figure>
+
+<h2 id="rfc2217-server-py">rfc2217_server.py</h2>
+
+<p><a href="https://pyserial.readthedocs.io/en/latest/examples.html#single-port-tcp-ip-serial-bridge-rfc-2217">Single-port TCP/IP - serial bridge (RFC 2217)</a>
+から<code>rfc2217_server.py</code>をダウンロードし、以下のように実行します。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ python3 rfc2217_server.py -p 10011 /dev/ttyUSB0
+INFO:root:RFC 2217 TCP/IP to Serial redirector - type Ctrl-C / BREAK to quit
+INFO:root:Serving serial port: /dev/ttyUSB0
+INFO:root:TCP/IP port: 10011</code></pre></div>
+
+<figure><a href="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_server.png"><img src="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_server_hu826cdf6b20d3d9d5e370bcb8caf2dabc_40949_600x0_resize_lanczos_2.png"></a></figure>
+
+<p>なお、ファイアウォールを設定している場合は、<code>rfc2217_server.py</code> が利用する TCP ポート(今回は <code>10011</code>) を開いておく必要があります。</p>
+
+<p>また、 環境によってはアクセス権のエラーが出るかもしれないので、その場合は <code>group</code> 等を調整するか <code>sudo</code> などで対応することになります。</p>
+
+<h2 id="リモートで接続する">リモートで接続する</h2>
+
+<p>まず、モニターができるか確認します。
+Visual Studio Code で PlatformIO のプロジェクトを開き、ターミナルなどから <code>$  pio device monitor -p rfc2217://xxx.xxx.xxx.xxx:10011 -b 115200</code> を実行します(<code>xxx.xxx.xxx.xxx</code> は USB 接続している PC の IP アドレス)。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ pio device monitor -p rfc2217://xxx.xxx.xxx.xxx:10011 -b 115200 
+--- Available filters and text transformations: colorize, debug, default, direct, esp32_exception_decoder, hexlify, log2file, nocontrol, printable, send_on_enter, time
+--- More details at http://bit.ly/pio-monitor-filters
+--- Miniterm on rfc2217://xxx.xxx.xxx.xxx:10011  115200,8,N,1 ---
+--- Quit: Ctrl+C | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---
+�M5StickC initializing...OK</code></pre></div>
+
+<p>モニターの確認ができたら <code>Ctrl + C</code> でモニターを終了します。</p>
+
+<p>アップロードも同じように
+<code>$ pio run -e m5stick-c -t upload --upload-port rfc2217://xxx.xxx.xxx.xxx:10011</code>
+で実行できます。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">\[$] pio run -e m5stick-c_screen_shot -t upload --upload-port rfc2217://xxx.xxx.xxx.xxx:10011
+Processing m5stick-c_screen_shot (platform: espressif32; board: m5stick-c; framework: arduino)
+--------------------------------------------------------------------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option                                  
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/m5stick-c.html      
+PLATFORM: Espressif 32 1.12.0 &gt; M5Stick-C    
+
+&lt;&lt; snip &gt;&gt;
+
+Linking .pio/build/m5stick-c_screen_shot/firmware.elf                           
+Retrieving maximum program size .pio/build/m5stick-c_screen_shot/firmware.elf
+Building .pio/build/m5stick-c_screen_shot/firmware.bin                                
+Checking size .pio/build/m5stick-c_screen_shot/firmware.elf                             
+Advanced Memory Usage is available via &#34;PlatformIO Home &gt; Project Inspect&#34;             
+RAM:   [=         ]  12.0% (used 39160 bytes from 327680 bytes)                        
+Flash: [========  ]  81.3% (used 1065159 bytes from 1310720 bytes)                        
+esptool.py v2.6                                                                       
+Configuring upload protocol...                                                        
+AVAILABLE: esp-prog, espota, esptool, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag
+-tiny, tumpa                                                                      
+CURRENT: upload_protocol = esptool                                     
+Looking for upload port...                                                           
+Use manually specified: rfc2217://xxx.xxx.xxx.xxx:10011
+Uploading .pio/build/m5stick-c_screen_shot/firmware.bin                                      
+esptool.py v2.6                                                                 
+Serial port rfc2217://xxx.xxx.xxx.xxx:10011
+Connecting....
+Chip is ESP32-PICO-D4 (revision 1)
+
+&lt;&lt; snip &gt;&gt;</code></pre></div>
+
+<p>ただし、アップロードは <code>Connecting....</code> から先にすすまない場合があるので、
+そのときは (Wi-Fiの場合はとくに)ネットワークの状況を確認し、何度か再実行すると成功することがあります。</p>
+
+<figure><a href="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_connect.png"><img src="/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_connect_huafc69bf967a87464934d33e7c50b5330_50502_600x0_resize_lanczos_2.png"></a></figure>
+
+<h2 id="改善点">改善点</h2>
+
+<p>M5StickC を USB 接続する毎に <code>rfc2217_server.py</code> を実行するのは地味に面倒なので、この辺は udev などで改善できればとは思っています。</p>
+
+<h2 id="その他の解決方法">その他の解決方法</h2>
+
+<p>今回は RFC 2217 を使いましたが、その他の解決方法も少し試してみたので雑感を記載しておきます。</p>
+
+<h3 id="docker-の-device-オプションで-dev-ttyusb0-を利用">Docker の <code>device</code> オプションで <code>/dev/ttyUSB0</code> を利用</h3>
+
+<ul>
+<li>良い点: コンテナ上でも普通に <code>pio</code> コマンドが使える。</li>
+<li>惜しい点: アクセス権の設定などが面倒になることがある、M5StickC は Docker Host に接続する必要がある。</li>
+</ul>
+
+<h3 id="ota-アップロード">OTA アップロード</h3>
+
+<ul>
+<li>良い点: ネットを検索すると設定例などがいろいろ出てくる</li>
+<li>惜しい点: 「マイコンボードからコンテナに接続しにくる」のでコンテナ側へのポート転送の設定などが必要になる。</li>
+</ul>
+
+<h3 id="pio-remote">pio remote</h3>
+
+<ul>
+<li>良い点: <a href="https://docs.platformio.org/en/latest/plus/pio-remote.html">公式が「SSHとかポートとか考えなくも大丈夫」と言っている通り</a>、設定などは一番楽に行える。 <code>monitor</code> が稼働しているときに <code>upload</code> してもきちんと調整してくれる。</li>
+<li>惜しい点: 少し遅い(ファームウエアを一旦 PlatformIO のサーバーに転送してから、あらためてリモートに転送している?)、リモート側にも Platform IO Core をインストールする必要がある。</li>
+</ul><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l"><div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#usb-接続できる-pc">USB 接続できる PC</a></li>
+<li><a href="#マイコンボードを接続">マイコンボードを接続</a></li>
+<li><a href="#pyserial">pySerial</a></li>
+<li><a href="#rfc2217-server-py">rfc2217_server.py</a></li>
+<li><a href="#リモートで接続する">リモートで接続する</a></li>
+<li><a href="#改善点">改善点</a></li>
+<li><a href="#その他の解決方法">その他の解決方法</a>
+<ul>
+<li><a href="#docker-の-device-オプションで-dev-ttyusb0-を利用">Docker の <code>device</code> オプションで <code>/dev/ttyUSB0</code> を利用</a></li>
+<li><a href="#ota-アップロード">OTA アップロード</a></li>
+<li><a href="#pio-remote">pio remote</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://hankei6km.github.io/" >
+    &copy;  SSD: SHORT SLOW DISTANCE 2020 
+  </a>
+    <div>
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -6,10 +6,21 @@
     <description>Recent content in Posts on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Mon, 29 Jun 2020 15:19:21 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 02 Jul 2020 16:14:07 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>PlatformIO で RFC 2217 を利用したマイコンボードへのリモート接続</title>
+      <link>https://hankei6km.github.io/posts/2020-07-platformio-port-rfc2217/</link>
+      <pubDate>Thu, 02 Jul 2020 16:14:07 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-07-platformio-port-rfc2217/</guid>
+      <description>&lt;p&gt;M5StickC用の開発は &lt;a href=&#34;https://platformio.org/&#34;&gt;PlatformIO&lt;/a&gt; + &lt;a href=&#34;https://code.visualstudio.com/&#34;&gt;Visual Studio Code&lt;/a&gt;(&lt;a href=&#34;https://code.visualstudio.com/docs/remote/containers&#34;&gt;Remote - Container&lt;/a&gt;) で行っているのですが、&lt;code&gt;pio&lt;/code&gt; コマンドをコンテナ上で実行した場合、ほとんどの場合で M5StickC (マイコンボード)への接続経路(ポート)が無いため、アップロードやモニターが出来ないことになります。&lt;/p&gt;
+
+&lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_intro.png&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-07-platformio-port-rfc2217/pio_port_rfc2217_intro_hu59c97bde48524349e844aea5771480cb_49249_600x0_resize_lanczos_2.png&#34;&gt;&lt;/a&gt;&lt;/figure&gt;</description>
+    </item>
     
     <item>
       <title>M5StickC で BLE対応のスティックタイプな心拍計(概要)</title>
