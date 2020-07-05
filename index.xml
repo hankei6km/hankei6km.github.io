@@ -6,10 +6,21 @@
     <description>Recent content on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Fri, 03 Jul 2020 16:01:08 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2020 05:49:45 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ジョギングの合間に Raspberry Pi Zero WH で M5StickC のログ採取</title>
+      <link>https://hankei6km.github.io/posts/2020-07-logging-jogging-raspberry-pi-zero-wh-m5stickc/</link>
+      <pubDate>Sun, 05 Jul 2020 05:49:45 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-07-logging-jogging-raspberry-pi-zero-wh-m5stickc/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/&#34;&gt;M5StickC で作っている心拍計&lt;/a&gt;のパラメーターを調整するとき、「ジョギングしている時の波形の形はこんな感じかな？」と予想しながら値を決めていたのですが、どうにも予想と違うような感じがしてきたので、ジョギング時の各種値を実際に採取してみることにしました。&lt;/p&gt;
+
+&lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-07-logging-jogging-raspberry-pi-zero-wh-m5stickc/logging_jogging_intro.jpg&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-07-logging-jogging-raspberry-pi-zero-wh-m5stickc/logging_jogging_intro_huab08fff026d3c247d7bb52e93564b7aa_1029005_300x0_resize_q75_lanczos.jpg&#34;&gt;&lt;/a&gt;&lt;/figure&gt;</description>
+    </item>
     
     <item>
       <title>TFT_eSprite を Windows Bitmap 形式へ変換し Base64 エンコードするライブラリ(SpriteToBmp)</title>
