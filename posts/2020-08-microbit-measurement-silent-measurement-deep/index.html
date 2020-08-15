@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>川の中の micro:bit が深く静かに計測したデータを ambient で地図上に表示する | SSD: SHORT SLOW DISTANCE</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+      <link rel="stylesheet" href="/css/custom.css">
+    
+      <link rel="stylesheet" href="/css/syntax-monokai.css">
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="川の中の micro:bit が深く静かに計測したデータを ambient で地図上に表示する" />
+<meta property="og:description" content="最近自作しているログ収集ウェブアプリのテストとして、
+「通信できない状況で計測されたデータを、後から BLE で同期し活用する」
+という想定の実験をしてみました。
+
+肝心のウェブアプリ自体がまだアップできていないので「なんのこっちゃ」という感じかとは思いますが。。。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hankei6km.github.io/posts/2020-08-microbit-measurement-silent-measurement-deep/" />
+<meta property="article:published_time" content="2020-08-10T10:43:47&#43;00:00"/>
+<meta property="article:modified_time" content="2020-08-10T10:43:47&#43;00:00"/>
+
+<meta itemprop="name" content="川の中の micro:bit が深く静かに計測したデータを ambient で地図上に表示する">
+<meta itemprop="description" content="最近自作しているログ収集ウェブアプリのテストとして、
+「通信できない状況で計測されたデータを、後から BLE で同期し活用する」
+という想定の実験をしてみました。
+
+肝心のウェブアプリ自体がまだアップできていないので「なんのこっちゃ」という感じかとは思いますが。。。
+
+">
+
+
+<meta itemprop="datePublished" content="2020-08-10T10:43:47&#43;00:00" />
+<meta itemprop="dateModified" content="2020-08-10T10:43:47&#43;00:00" />
+<meta itemprop="wordCount" content="111">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="川の中の micro:bit が深く静かに計測したデータを ambient で地図上に表示する"/>
+<meta name="twitter:description" content="最近自作しているログ収集ウェブアプリのテストとして、
+「通信できない状況で計測されたデータを、後から BLE で同期し活用する」
+という想定の実験をしてみました。
+
+肝心のウェブアプリ自体がまだアップできていないので「なんのこっちゃ」という感じかとは思いますが。。。
+
+"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        SSD: SHORT SLOW DISTANCE
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://hankei6km.github.io/posts/2020-08-microbit-measurement-silent-measurement-deep/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://hankei6km.github.io/posts/2020-08-microbit-measurement-silent-measurement-deep/&amp;text=%e5%b7%9d%e3%81%ae%e4%b8%ad%e3%81%ae%20micro:bit%20%e3%81%8c%e6%b7%b1%e3%81%8f%e9%9d%99%e3%81%8b%e3%81%ab%e8%a8%88%e6%b8%ac%e3%81%97%e3%81%9f%e3%83%87%e3%83%bc%e3%82%bf%e3%82%92%20ambient%20%e3%81%a7%e5%9c%b0%e5%9b%b3%e4%b8%8a%e3%81%ab%e8%a1%a8%e7%a4%ba%e3%81%99%e3%82%8b" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://hankei6km.github.io/posts/2020-08-microbit-measurement-silent-measurement-deep/&amp;title=%e5%b7%9d%e3%81%ae%e4%b8%ad%e3%81%ae%20micro:bit%20%e3%81%8c%e6%b7%b1%e3%81%8f%e9%9d%99%e3%81%8b%e3%81%ab%e8%a8%88%e6%b8%ac%e3%81%97%e3%81%9f%e3%83%87%e3%83%bc%e3%82%bf%e3%82%92%20ambient%20%e3%81%a7%e5%9c%b0%e5%9b%b3%e4%b8%8a%e3%81%ab%e8%a1%a8%e7%a4%ba%e3%81%99%e3%82%8b" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">川の中の micro:bit が深く静かに計測したデータを ambient で地図上に表示する</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-08-10T10:43:47Z">August 10, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>最近自作しているログ収集ウェブアプリのテストとして、
+「通信できない状況で計測されたデータを、後から BLE で同期し活用する」
+という想定の実験をしてみました。</p>
+
+<p>肝心のウェブアプリ自体がまだアップできていないので「なんのこっちゃ」という感じかとは思いますが。。。</p>
+
+<figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-intro-01.png"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-intro-01_hu30513997c466a65ab11a8747b46c7487_241294_600x0_resize_lanczos_2.png"></a></figure>
+
+<h2 id="実験概要と注意事項">実験概要と注意事項</h2>
+
+<p>「通信できない状況といったら水中かな」ということで、
+今回は以下の手順で「川の(水面下の)温度と明るさを<a href="https://microbit.org/">micro:bit</a>で計測し、
+<a href="https://ambidata.io/">ambient</a> で地図上に表示する」という実験を行いました。</p>
+
+<ol>
+<li>河川の利用ルール等を確認。</li>
+<li>100円均一等でボトルと重石(今回は100円均一のミックス小石を利用)を準備。</li>
+<li>micro:bit で使う計測用コードを作成し、書き込む。</li>
+<li>ボトルに micro:bit と重石を詰め込み、河川敷でのジョギングに持っていく。</li>
+<li>計測ポイントに到着したらボトルを川へ投入し計測が終わるまで待つ。</li>
+<li>ボトルを引き揚げ、BLE 接続でデータを同期(回収)。</li>
+<li>帰宅後に ambient へ送信し表示する。</li>
+</ol>
+
+<figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-entry-01.jpg"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-entry-01_hud3ab5a934f531c2ab4a85e5781916822_2376294_600x0_resize_q75_lanczos.jpg"></a></figure>
+
+<p>なお、今回の実験は、河川の自由使用の範囲を超えないようにしたつもりですが、
+素人が個人的に行っていることなので見落としていることも多いかと思います。
+もしも、同じような実験を行う場合は、ご自身でも河川の利用ルールや安全な利用についてのご確認をお願いいたいます。</p>
+
+<p>参考:</p>
+
+<ul>
+<li><a href="https://www.ktr.mlit.go.jp/keihin/keihin_index097.html">川の利用案内 | 京浜河川事務所 | 国土交通省　関東地方整備局</a></li>
+<li><a href="https://www.mlit.go.jp/river/kankyo/index.html">環境 - 国土交通省水管理・国土保全局(川の安全利用等へのリンクがあります)</a></li>
+</ul>
+
+<h2 id="micro-bit-へ書き込むコード">micro:bit へ書き込むコード</h2>
+
+<p>おおまかには以下のように動作するコードを作成しました。</p>
+
+<ul>
+<li>温度、明るさ、時刻(ミリ秒)を 2 分間隔 x 6 回、配列に記録する。</li>
+<li>Bluetooth で接続されたら、スマホ側から時刻情報を受け取り、補正を行いながら記録されたデータを送信。</li>
+</ul>
+
+<p>配列の大きさについては、あまり大きくすると <code>020</code> エラーになってしまうので、
+6 回分としました。</p>
+
+<p>時刻は micro:bit の<code>ミリ秒</code>で記録しておいて、
+ウェブアプリが送信してきた現在時刻(<code>Date.now()</code>)を元に micro:bit 内で補正しています。
+通信の遅延などは考慮していないので、精度はよくないと思います。</p>
+
+<p>また、今回は地図上で表示を行うための位置情報も必要となりますが、
+これについてはウェブアプリ側でログを取得するとき付加しています。
+よって、同期する前に移動してしまうと場所がズレてしまいます。</p>
+
+<p>具体的なコードはウェブアプリがアップできた後にアップする予定ですが、
+とりあえずスクリーンショットを貼っておきます。</p>
+
+<figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-code-screen-shot.png"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-code-screen-shot_hubcf3d716d02b0bbf1ec6313c890da663_158667_600x0_resize_lanczos_2.png"></a></figure>
+
+<h2 id="計測ポイント">計測ポイント</h2>
+
+<p>写真の場所の左岸と右岸で２回計測しました。</p>
+
+<figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-point.jpg"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-point_hubc241be92c91df03f6f91a46c43310ef_1279039_600x0_resize_q75_lanczos.jpg"></a></figure>
+
+<h2 id="micro-bit-を川へ投入">micro:bit を川へ投入</h2>
+
+<p>投入とは言いつつも、ゆっくりと川へ降ろしました。</p>
+
+<p><figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-entry-02.jpg"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-entry-02_hu3c6ab8ca153ebf2e6fa9dbe1eb96c305_4192293_600x0_resize_q75_lanczos.jpg"></a></figure>
+<figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-entry-03.jpg"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-entry-03_hu7a9691adcc194e7d025c7bfb7e717148_2316652_600x0_resize_q75_lanczos.jpg"></a></figure></p>
+
+<p>右岸は思っていたよりも水深があるようで、用意したロープ(3から4mくらい)をいっぱいまで伸ばしても底には到達しませんでした。</p>
+
+<figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-entry-04.jpg"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-entry-04_hu6b12cb461bffd8277ff399a606ddf18a_1940822_600x0_resize_q75_lanczos.jpg"></a></figure>
+
+<h2 id="温度と明るさを計測">温度と明るさを計測</h2>
+
+<p>計測は自動で行われるので、景色を眺めながら待つだけです。。。
+と優雅な感じで行きたいところでしたが、当日はスマホのカメラも音を上げる暑さだったので汗だらだらで待っていました。</p>
+
+<p>後から考えると、人間は日陰で待っていてもよかったような気もしないでもないですが。。。</p>
+
+<p><figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-landscape-01.jpg"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-landscape-01_hu35a08bd2d7014d912b32fb4bd85bc3a9_2763281_600x0_resize_q75_lanczos.jpg"></a></figure>
+<figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-shutdown-camera.png"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-shutdown-camera_hu71326e9a16cf985922eeb635ebeab3c2_49422_600x0_resize_lanczos_2.png"></a></figure></p>
+
+<h2 id="データの同期-回収">データの同期(回収)</h2>
+
+<p>ボトルを引き揚げて浸水してないか等を確認し、BLE 接続でデータを同期(回収)。</p>
+
+<p>写真では micro:bit をボトルから取り出していますが、
+水面から引き揚げれば(通信状況にもよりますが)ボトルに入れたままでも接続できます。</p>
+
+<p><figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-sync-01.jpg"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-sync-01_hu7ae7e0c981ec99610bddb26f8006c01d_2653006_600x0_resize_q75_lanczos.jpg"></a></figure>
+<figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-pocketable-01.png"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-pocketable-01_hu45dc90db6763130510d566b7576da0cd_105370_600x0_resize_lanczos_2.png"></a></figure></p>
+
+<h2 id="結果">結果</h2>
+
+<p>下図は ambient へ送信した結果です
+(地図がぼやけていますが、今回のような引用が Google マップの利用規約に引っ掛かるかが不明だったので、
+念のためぼやかしました。処理的に不具合があったわけではありません)。</p>
+
+<p>今回は正しくは水温を測ったわけではないのですが、
+<a href="https://www.env.go.jp/council/09water/y090-15/mat03_1-07.pdf">環境庁の資料</a>によると、
+(数年前の値ですが)この近辺の水温の年最高値(5カ年度平均)が27℃くらいとあったので
+「それほどかけ離れた値でもないのかな」といった感じでしょうか。</p>
+
+<p>また、2回目の計測ではボトルは水面から見えない状態でしたが、明るさが完全にはゼロにならないのはちょっと意外でした。</p>
+
+<p>なお、micro:bit 側で 6 回計測しているはずなのに ambient 上では 5 回分のデータしか表示されていないのは、ウェブアプリの制限です(現状では最後の１回分が記録できないので。。。)。</p>
+
+<figure><a href="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-intro-01.png"><img src="/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-intro-01_hu30513997c466a65ab11a8747b46c7487_241294_800x0_resize_lanczos_2.png"></a></figure>
+
+<h2 id="まとめ">まとめ</h2>
+
+<p>データを記録できる容量を増やせないか等、改善の余地はありそうですが、
+蓄積されたデータを BLE 経由で回収し活用するという当初の目的は達成できたと思います。</p>
+
+<p>また、実験の本筋からは少し外れますが、
+「水温は(夏ということもあってか)思っていたよりも温かい」「水深のあるとことろでも意外と日光は届いている？」
+など、普段はあまり考えることがなかったようなことを知ることができたのは興味深かったです。</p><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l"><div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#実験概要と注意事項">実験概要と注意事項</a></li>
+<li><a href="#micro-bit-へ書き込むコード">micro:bit へ書き込むコード</a></li>
+<li><a href="#計測ポイント">計測ポイント</a></li>
+<li><a href="#micro-bit-を川へ投入">micro:bit を川へ投入</a></li>
+<li><a href="#温度と明るさを計測">温度と明るさを計測</a></li>
+<li><a href="#データの同期-回収">データの同期(回収)</a></li>
+<li><a href="#結果">結果</a></li>
+<li><a href="#まとめ">まとめ</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://hankei6km.github.io/" >
+    &copy;  SSD: SHORT SLOW DISTANCE 2020 
+  </a>
+    <div>
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

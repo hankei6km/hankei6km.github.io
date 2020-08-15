@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>PlatformIO の Desktop テストを Visual Studio Code でデバッグ | SSD: SHORT SLOW DISTANCE</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+      <link rel="stylesheet" href="/css/custom.css">
+    
+      <link rel="stylesheet" href="/css/syntax-monokai.css">
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="PlatformIO の Desktop テストを Visual Studio Code でデバッグ" />
+<meta property="og:description" content="PlatformIO の Desktop(Native) テストは
+デスクトップ(PC) 上で動かすので「Visual Studio Code でデバッグできるのでは？」と期待してしまうのですが、
+そのための正しい手順というのはなさそうです。
+
+しかしながら、デバッガーを使いたいと思うことはそれなりにあるので、
+「launch.json を毎回書き換える必要がある」という条件付きですが、
+Visual Studio Code でデバッグする方法を考えてみました(ちょっと前から使っていますが、毎回ひと手間必要だけど普通に動いてはいます)。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hankei6km.github.io/posts/2020-07-debugging_pio_native_test_in_vscode/" />
+<meta property="article:published_time" content="2020-07-03T09:45:12&#43;00:00"/>
+<meta property="article:modified_time" content="2020-07-03T09:45:12&#43;00:00"/>
+
+<meta itemprop="name" content="PlatformIO の Desktop テストを Visual Studio Code でデバッグ">
+<meta itemprop="description" content="PlatformIO の Desktop(Native) テストは
+デスクトップ(PC) 上で動かすので「Visual Studio Code でデバッグできるのでは？」と期待してしまうのですが、
+そのための正しい手順というのはなさそうです。
+
+しかしながら、デバッガーを使いたいと思うことはそれなりにあるので、
+「launch.json を毎回書き換える必要がある」という条件付きですが、
+Visual Studio Code でデバッグする方法を考えてみました(ちょっと前から使っていますが、毎回ひと手間必要だけど普通に動いてはいます)。
+
+">
+
+
+<meta itemprop="datePublished" content="2020-07-03T09:45:12&#43;00:00" />
+<meta itemprop="dateModified" content="2020-07-03T09:45:12&#43;00:00" />
+<meta itemprop="wordCount" content="137">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PlatformIO の Desktop テストを Visual Studio Code でデバッグ"/>
+<meta name="twitter:description" content="PlatformIO の Desktop(Native) テストは
+デスクトップ(PC) 上で動かすので「Visual Studio Code でデバッグできるのでは？」と期待してしまうのですが、
+そのための正しい手順というのはなさそうです。
+
+しかしながら、デバッガーを使いたいと思うことはそれなりにあるので、
+「launch.json を毎回書き換える必要がある」という条件付きですが、
+Visual Studio Code でデバッグする方法を考えてみました(ちょっと前から使っていますが、毎回ひと手間必要だけど普通に動いてはいます)。
+
+"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        SSD: SHORT SLOW DISTANCE
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://hankei6km.github.io/posts/2020-07-debugging_pio_native_test_in_vscode/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://hankei6km.github.io/posts/2020-07-debugging_pio_native_test_in_vscode/&amp;text=PlatformIO%20%e3%81%ae%20Desktop%20%e3%83%86%e3%82%b9%e3%83%88%e3%82%92%20Visual%20Studio%20Code%20%e3%81%a7%e3%83%87%e3%83%90%e3%83%83%e3%82%b0" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://hankei6km.github.io/posts/2020-07-debugging_pio_native_test_in_vscode/&amp;title=PlatformIO%20%e3%81%ae%20Desktop%20%e3%83%86%e3%82%b9%e3%83%88%e3%82%92%20Visual%20Studio%20Code%20%e3%81%a7%e3%83%87%e3%83%90%e3%83%83%e3%82%b0" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">PlatformIO の Desktop テストを Visual Studio Code でデバッグ</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-07-03T09:45:12Z">July 3, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>PlatformIO の <a href="https://docs.platformio.org/en/latest/plus/unit-testing.html#desktop">Desktop(Native) テスト</a>は
+デスクトップ(PC) 上で動かすので「<a href="https://code.visualstudio.com/docs/editor/debugging">Visual Studio Code でデバッグ</a>できるのでは？」と期待してしまうのですが、
+そのための正しい手順というのはなさそうです。</p>
+
+<p>しかしながら、デバッガーを使いたいと思うことはそれなりにあるので、
+「<code>launch.json</code> を毎回書き換える必要がある」という条件付きですが、
+Visual Studio Code でデバッグする方法を考えてみました(ちょっと前から使っていますが、毎回ひと手間必要だけど普通に動いてはいます)。</p>
+
+<figure><a href="/posts/2020-07-debugging_pio_native_test_in_vscode/pio_test_vscode_intro.png"><img src="/posts/2020-07-debugging_pio_native_test_in_vscode/pio_test_vscode_intro_huecd01d4e60558d51d083af94eea45419_49491_600x0_resize_lanczos_2.png"></a></figure>
+
+<ul>
+<li>マイコンボード上で稼働しているコードをデバッグする手順ではありません。</li>
+<li>「正しい手順はなさそう」というのは少し前に調べたときのことなので、現状ではまた違うかもしれません。</li>
+</ul>
+
+<h2 id="build-flags">build_flags</h2>
+
+<p><code>platformio.ini</code> のテスト用セクションの <code>build_flags</code> を以下のように変更します。これで、Breakpoint 等が機能するようになります。なお、<code>build_type</code> を <code>debug</code> にしても機能するようには<strong>ならなかった</strong>ので注意してください(<code>debug</code> にすると <code>-c -Og -g2 -ggdb2</code> になるようです)。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[env:test-native]</span>
+<span style="color:#a6e22e">platform</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">native</span>
+<span style="color:#a6e22e">test_ignore</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">test_embedded</span>
+<span style="color:#75715e">;build_type = debug</span>
+<span style="color:#a6e22e">build_flags</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">-O0 -g</span></code></pre></div>
+
+<h2 id="ビルド">ビルド</h2>
+
+<p><code>$ pio test -e test-native</code> などでテストを実行し、テストの実行ファイルをビルドしておきます。</p>
+
+<h2 id="launch-json">launch.json</h2>
+
+<p>Run View の歯車アイコンをクリックして <code>launch.json</code> を開きます。</p>
+
+
+
+<figure>
+    <img src="/posts/2020-07-debugging_pio_native_test_in_vscode/pio_test_vscode_launch.png" style="width:340px"></figure>
+
+<p><code>configurations</code> 配列に以下の項目を追加します。
+なお、<code>&quot;program&quot;: &quot;${workspaceFolder}/.pio/build/test-native/program&quot;</code> はテスト用のセクション名が  <code>[env:test-native]</code> の場合の例です。
+異なる場合は該当部分を書き換える必要があります。</p>
+
+<p>また、ファイルのコメントにあるように、<code>launch.json</code> は PlatformIO が書き換えているようなので
+(Window をリロードしたりなどの「ちょっとした操作」で初期化されます)、
+時間を空けてデバッグを再開するときは、多くの場合で再追加する必要があります。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;PIO Debug Desktop Test&#34;</span>,
+    <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;cppdbg&#34;</span>,
+    <span style="color:#f92672">&#34;request&#34;</span>: <span style="color:#e6db74">&#34;launch&#34;</span>,
+    <span style="color:#f92672">&#34;program&#34;</span>: <span style="color:#e6db74">&#34;${workspaceFolder}/.pio/build/test-native/program&#34;</span>,
+    <span style="color:#f92672">&#34;args&#34;</span>: [],
+    <span style="color:#f92672">&#34;stopAtEntry&#34;</span>: <span style="color:#66d9ef">false</span>,
+    <span style="color:#f92672">&#34;cwd&#34;</span>: <span style="color:#e6db74">&#34;${workspaceFolder}&#34;</span>,
+    <span style="color:#f92672">&#34;environment&#34;</span>: [],
+    <span style="color:#f92672">&#34;externalConsole&#34;</span>: <span style="color:#66d9ef">false</span>,
+    <span style="color:#f92672">&#34;MIMode&#34;</span>: <span style="color:#e6db74">&#34;gdb&#34;</span>,
+    <span style="color:#f92672">&#34;setupCommands&#34;</span>: [
+        {
+            <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Enable pretty-printing for gdb&#34;</span>,
+            <span style="color:#f92672">&#34;text&#34;</span>: <span style="color:#e6db74">&#34;-enable-pretty-printing&#34;</span>,
+            <span style="color:#f92672">&#34;ignoreFailures&#34;</span>: <span style="color:#66d9ef">true</span>
+        }
+    ]
+}<span style="color:#960050;background-color:#1e0010">,</span></code></pre></div>
+
+<h2 id="デバッグ">デバッグ</h2>
+
+<p>Run から <code>PIO Debug Desktop Test</code> を選択し <code>F5</code> の押下などでデバッグが開始されます。</p>
+
+
+
+<figure>
+    <img src="/posts/2020-07-debugging_pio_native_test_in_vscode/pio_test_vscode_run.png" style="width:460px"></figure>
+
+<p>ポップアップリストに <code>PIO Debug Desktop Test</code> が存在しない場合、<code>launch.json</code> が初期化されてしまっています。前述の手順で項目を再追加する必要があります。</p>
+
+<h2 id="改善点">改善点</h2>
+
+<p>やはり <code>launch.json</code> の設定を永続化されるようにはしたいのですが、PlatformIO の仕様のようなのでちょっと難しそうかなと。</p><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l"><div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#build-flags">build_flags</a></li>
+<li><a href="#ビルド">ビルド</a></li>
+<li><a href="#launch-json">launch.json</a></li>
+<li><a href="#デバッグ">デバッグ</a></li>
+<li><a href="#改善点">改善点</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://hankei6km.github.io/" >
+    &copy;  SSD: SHORT SLOW DISTANCE 2020 
+  </a>
+    <div>
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

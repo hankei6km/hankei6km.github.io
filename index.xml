@@ -6,10 +6,25 @@
     <description>Recent content on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 05 Jul 2020 05:49:45 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2020 10:43:47 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>川の中の micro:bit が深く静かに計測したデータを ambient で地図上に表示する</title>
+      <link>https://hankei6km.github.io/posts/2020-08-microbit-measurement-silent-measurement-deep/</link>
+      <pubDate>Mon, 10 Aug 2020 10:43:47 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-08-microbit-measurement-silent-measurement-deep/</guid>
+      <description>&lt;p&gt;最近自作しているログ収集ウェブアプリのテストとして、
+「通信できない状況で計測されたデータを、後から BLE で同期し活用する」
+という想定の実験をしてみました。&lt;/p&gt;
+
+&lt;p&gt;肝心のウェブアプリ自体がまだアップできていないので「なんのこっちゃ」という感じかとは思いますが。。。&lt;/p&gt;
+
+&lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-intro-01.png&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-08-microbit-measurement-silent-measurement-deep/microbit-measurement-intro-01_hu30513997c466a65ab11a8747b46c7487_241294_600x0_resize_lanczos_2.png&#34;&gt;&lt;/a&gt;&lt;/figure&gt;</description>
+    </item>
     
     <item>
       <title>ジョギングの合間に Raspberry Pi Zero WH で M5StickC のログ採取</title>
@@ -31,6 +46,23 @@
       <description>&lt;p&gt;&lt;a href=&#34;https://platformio.org/lib/show/7485/SpriteToBmp&#34;&gt;SpriteToBmp&lt;/a&gt; は &lt;a href=&#34;https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/&#34;&gt;M5StickC で作っている心拍計&lt;/a&gt;のスクリーンショット画像(TFT_eSprite のフレームバッファ)をエンコードする部分をライブラリ化したものです(スクリーンショットを作成する機能は含まれていません)。&lt;/p&gt;
 
 &lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-07-sprite-to-bmp/sprite_to_bmp_intro.png&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-07-sprite-to-bmp/sprite_to_bmp_intro_hu8732836fb0c0e06d16197f3d5ed64c36_91154_600x0_resize_lanczos_2.png&#34;&gt;&lt;/a&gt;&lt;/figure&gt;</description>
+    </item>
+    
+    <item>
+      <title>PlatformIO の Desktop テストを Visual Studio Code でデバッグ</title>
+      <link>https://hankei6km.github.io/posts/2020-07-debugging_pio_native_test_in_vscode/</link>
+      <pubDate>Fri, 03 Jul 2020 09:45:12 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-07-debugging_pio_native_test_in_vscode/</guid>
+      <description>&lt;p&gt;PlatformIO の &lt;a href=&#34;https://docs.platformio.org/en/latest/plus/unit-testing.html#desktop&#34;&gt;Desktop(Native) テスト&lt;/a&gt;は
+デスクトップ(PC) 上で動かすので「&lt;a href=&#34;https://code.visualstudio.com/docs/editor/debugging&#34;&gt;Visual Studio Code でデバッグ&lt;/a&gt;できるのでは？」と期待してしまうのですが、
+そのための正しい手順というのはなさそうです。&lt;/p&gt;
+
+&lt;p&gt;しかしながら、デバッガーを使いたいと思うことはそれなりにあるので、
+「&lt;code&gt;launch.json&lt;/code&gt; を毎回書き換える必要がある」という条件付きですが、
+Visual Studio Code でデバッグする方法を考えてみました(ちょっと前から使っていますが、毎回ひと手間必要だけど普通に動いてはいます)。&lt;/p&gt;
+
+&lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-07-debugging_pio_native_test_in_vscode/pio_test_vscode_intro.png&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-07-debugging_pio_native_test_in_vscode/pio_test_vscode_intro_huecd01d4e60558d51d083af94eea45419_49491_600x0_resize_lanczos_2.png&#34;&gt;&lt;/a&gt;&lt;/figure&gt;</description>
     </item>
     
     <item>
