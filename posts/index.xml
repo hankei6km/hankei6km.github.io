@@ -6,10 +6,31 @@
     <description>Recent content in Posts on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Mon, 10 Aug 2020 10:43:47 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2020 09:08:35 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ブログ上でプロッター表示</title>
+      <link>https://hankei6km.github.io/posts/2020-08-hugo_shortcode_plotter/</link>
+      <pubDate>Thu, 27 Aug 2020 09:08:35 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-08-hugo_shortcode_plotter/</guid>
+      <description>&lt;p&gt;最近、&lt;a href=&#34;https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/&#34;&gt;M5StickC 心拍計&lt;/a&gt; のログ出力を
+無線化し運動時の記録をとるようにしたのですが、
+毎回の記録を表計算ソフトで個別にグラフ化するのも厳しくなってきたので、
+&lt;a href=&#34;https://gohugo.io/content-management/shortcodes/&#34;&gt;Hugo の Shortcode&lt;/a&gt; でブログ上にプロッターぽいものを表示できるようにしてみました。&lt;/p&gt;
+
+&lt;p&gt;データを丸ごと JSON で埋め込んでいることもあり、件数によってはかなり重いですが、
+&lt;a href=&#34;https://apexcharts.com/&#34;&gt;ApexCharts.js&lt;/a&gt; を使っているのでマウス操作での拡大縮小や、アノテーション表示
+(今回の例だと&lt;code&gt;peakP&lt;/code&gt;ラベル)もできます。&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    &lt;img src=&#34;https://hankei6km.github.io/posts/2020-08-hugo_shortcode_plotter/plotter_intro.gif&#34; style=&#34;width:&#34;&gt;&lt;/figure&gt;</description>
+    </item>
     
     <item>
       <title>川の中の micro:bit が深く静かに計測したデータを ambient で地図上に表示する</title>
