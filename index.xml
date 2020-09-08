@@ -6,10 +6,23 @@
     <description>Recent content on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Thu, 27 Aug 2020 09:08:35 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Sep 2020 04:57:59 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Web Bluetooth ではキャッシュされたサービスの UUID が使われる(ような気がする)</title>
+      <link>https://hankei6km.github.io/posts/2020-09-cahced_service_uuid_may_be_used_in_web_bluetooth/</link>
+      <pubDate>Tue, 08 Sep 2020 04:57:59 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-09-cahced_service_uuid_may_be_used_in_web_bluetooth/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-06-m5stic-c-heart-rate-monitor-ble-intro/&#34;&gt;M5StickC 心拍計&lt;/a&gt;
+のログをBLEで取得できるよう変更していたときに、
+&lt;a href=&#34;https://webbluetoothcg.github.io/web-bluetooth/&#34;&gt;Web Bluetooh&lt;/a&gt; から新しく追加したサービスに接続できず、しばらく悩んでしまったのでメモなど。&lt;/p&gt;
+
+&lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-09-cahced_service_uuid_may_be_used_in_web_bluetooth/cached_service_uuid_intro.png&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-09-cahced_service_uuid_may_be_used_in_web_bluetooth/cached_service_uuid_intro_hu189bc7f015999784c5a04d0c884de89a_102580_600x0_resize_lanczos_2.png&#34;&gt;&lt;/a&gt;&lt;/figure&gt;</description>
+    </item>
     
     <item>
       <title>ブログ上でプロッター表示</title>
