@@ -6,10 +6,22 @@
     <description>Recent content in Posts on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Tue, 08 Sep 2020 04:57:59 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2020 03:40:19 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>M5StcikC 心拍計のログ、安静時、朝</title>
+      <link>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-morning/</link>
+      <pubDate>Wed, 09 Sep 2020 03:40:19 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-morning/</guid>
+      <description>&lt;p&gt;M5StcikC 心拍計のログについて、
+「そういえば、安静時のものは確認したことがなかったな」 ということでログをとってみました。&lt;/p&gt;
+
+&lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-morning/hrm_dev_log_resting_morning_intro.jpg&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-morning/hrm_dev_log_resting_morning_intro_hu5e85c51ea85747d732f20000e28cdffb_1538979_600x0_resize_q75_lanczos.jpg&#34;&gt;&lt;/a&gt;&lt;/figure&gt;</description>
+    </item>
     
     <item>
       <title>Web Bluetooth ではキャッシュされたサービスの UUID が使われる(ような気がする)</title>
