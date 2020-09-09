@@ -169,7 +169,7 @@
 <figure><a href="/posts/2020-09-hrm-dev-log-resting-morning/hrm_dev_log_resting_morning_intro.jpg"><img src="/posts/2020-09-hrm-dev-log-resting-morning/hrm_dev_log_resting_morning_intro_hu5e85c51ea85747d732f20000e28cdffb_1538979_600x0_resize_q75_lanczos.jpg"></a></figure>
 
 <p>普段も M5StickC の画面上のプロッターで部分的にはセンサー出力の様子は見ているのですが、
-あらためて俯瞰してみると「一定の値で上下してるわけではない」ということがわかりちょっと興味深いです。</p>
+あらためて俯瞰してみると「安静時でも一定の値で上下してるわけではない」ということがわかりちょっと興味深いです。</p>
 
 <p>指をケースに置いたあとに、指への力の入り加減が徐々に変化しいっているのかなと予想していますが、
 実際のところはどうなんでしょう?</p>
@@ -177,11 +177,11 @@
 <script src='https://cdn.jsdelivr.net/npm/apexcharts'></script>
 
 <div style=' width: 100%; padding-top: 20px; padding-bottom: 40px;'>
-    <div id='chart1f464e0ab6faeb3e17c460c57e69cb8b' style='width:100%; height: 200'> </div>
+    <div id='chartdfc1a16ccbe852ca61e011c0a977745f' style='width:100%; height: 200'> </div>
     <div style='display:flex; flex-direction: row; padding-left: 30px; padding-right: 0px;'>
         <div style='flex: initial; display:flex; flex-direction: row;'>
             <div style='flex:auto;'>
-                <button id='playback1f464e0ab6faeb3e17c460c57e69cb8b' style='display: none; border: none;'>
+                <button id='playbackdfc1a16ccbe852ca61e011c0a977745f' style='display: none; border: none;'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#606060' width='32px'
                         height='32px'>
                         <path d='M0 0h24v24H0z' fill='none' />
@@ -191,7 +191,7 @@
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='pause1f464e0ab6faeb3e17c460c57e69cb8b' style='display: none; border: none;'>
+                <button id='pausedfc1a16ccbe852ca61e011c0a977745f' style='display: none; border: none;'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#606060' width='32px'
                         height='32px'>
                         <path d='M0 0h24v24H0z' fill='none' />
@@ -201,7 +201,7 @@
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='replay1f464e0ab6faeb3e17c460c57e69cb8b' style='border: none;'>
+                <button id='replaydfc1a16ccbe852ca61e011c0a977745f' style='border: none;'>
                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
                         fill="#606060" width="32px" height="32px">
                         <g>
@@ -223,7 +223,7 @@
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='forward1f464e0ab6faeb3e17c460c57e69cb8b' style='border: none;'>
+                <button id='forwarddfc1a16ccbe852ca61e011c0a977745f' style='border: none;'>
                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
                         fill="#606060" width="32px" height="32px">
                         <g>
@@ -243,7 +243,7 @@
                 </button>
             </div>
         </div>
-        <input type="range" id="pos1f464e0ab6faeb3e17c460c57e69cb8b" min="0" max="1" style="flex:auto; display:block;">
+        <input type="range" id="posdfc1a16ccbe852ca61e011c0a977745f" min="0" max="1" style="flex:auto; display:block;">
     </div>
 </div><script type="text/javascript">
     (function () {
@@ -251,7 +251,7 @@
             '#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0',
             '#3F51B5', '#03A9F4', '#4CAF50', '#F9CE1D', '#FF9800',
         ];
-        const uniqueId = '1f464e0ab6faeb3e17c460c57e69cb8b';
+        const uniqueId = 'dfc1a16ccbe852ca61e011c0a977745f';
         const titleText = '2020-09-09 安静時、朝' ? '2020-09-09 安静時、朝' : '';
         const enabledPalyback = '' ? true : false;
         const serriesParams = JSON.parse('[{\x22name\x22: \x22val\x22, \x22showYaxis\x22:true, \x22color\x22: \x22#FF4560\x22}, {\x22name\x22: \x22gyroX\x22, \x22hidden\x22: true, \x22opposite\x22: true, \x22color\x22: \x22#775DD0\x22}, {\x22name\x22: \x22gyroY\x22,  \x22hidden\x22: true, \x22opposite\x22: true, \x22color\x22: \x22#00E396\x22}, {\x22name\x22: \x22gyroZ\x22, \x22opposite\x22: true, \x22color\x22: \x22#008FFB\x22}]');
