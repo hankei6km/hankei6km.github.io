@@ -49,7 +49,7 @@
 
 <meta itemprop="datePublished" content="2020-09-09T03:40:19&#43;00:00" />
 <meta itemprop="dateModified" content="2020-09-09T03:40:19&#43;00:00" />
-<meta itemprop="wordCount" content="633">
+<meta itemprop="wordCount" content="645">
 
 
 
@@ -168,20 +168,16 @@
 
 <figure><a href="/posts/2020-09-hrm-dev-log-resting-morning/hrm_dev_log_resting_morning_intro.jpg"><img src="/posts/2020-09-hrm-dev-log-resting-morning/hrm_dev_log_resting_morning_intro_hu5e85c51ea85747d732f20000e28cdffb_1538979_600x0_resize_q75_lanczos.jpg"></a></figure>
 
-<p>普段も M5StickC の画面上のプロッターで部分的にはセンサー出力の様子は見ているのですが、
-あらためて俯瞰してみると「安静時でも一定の値で上下してるわけではない」ということがわかりちょっと興味深いです。</p>
-
-<p>指をケースに置いたあとに、指への力の入り加減が徐々に変化しいっているのかなと予想していますが、
-実際のところはどうなんでしょう?</p>
+<h2 id="プロッター表示">プロッター表示</h2>
 
 <script src='https://cdn.jsdelivr.net/npm/apexcharts'></script>
 
 <div style=' width: 100%; padding-top: 20px; padding-bottom: 40px;'>
-    <div id='chartdfc1a16ccbe852ca61e011c0a977745f' style='width:100%; height: 200'> </div>
+    <div id='chart43250c93e7d5d58c21c7bb3dbbc25889' style='width:100%; height: 200'> </div>
     <div style='display:flex; flex-direction: row; padding-left: 30px; padding-right: 0px;'>
         <div style='flex: initial; display:flex; flex-direction: row;'>
             <div style='flex:auto;'>
-                <button id='playbackdfc1a16ccbe852ca61e011c0a977745f' style='display: none; border: none;'>
+                <button id='playback43250c93e7d5d58c21c7bb3dbbc25889' style='display: none; border: none;'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#606060' width='32px'
                         height='32px'>
                         <path d='M0 0h24v24H0z' fill='none' />
@@ -191,7 +187,7 @@
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='pausedfc1a16ccbe852ca61e011c0a977745f' style='display: none; border: none;'>
+                <button id='pause43250c93e7d5d58c21c7bb3dbbc25889' style='display: none; border: none;'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#606060' width='32px'
                         height='32px'>
                         <path d='M0 0h24v24H0z' fill='none' />
@@ -201,7 +197,7 @@
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='replaydfc1a16ccbe852ca61e011c0a977745f' style='border: none;'>
+                <button id='replay43250c93e7d5d58c21c7bb3dbbc25889' style='border: none;'>
                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
                         fill="#606060" width="32px" height="32px">
                         <g>
@@ -223,7 +219,7 @@
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='forwarddfc1a16ccbe852ca61e011c0a977745f' style='border: none;'>
+                <button id='forward43250c93e7d5d58c21c7bb3dbbc25889' style='border: none;'>
                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
                         fill="#606060" width="32px" height="32px">
                         <g>
@@ -243,7 +239,7 @@
                 </button>
             </div>
         </div>
-        <input type="range" id="posdfc1a16ccbe852ca61e011c0a977745f" min="0" max="1" style="flex:auto; display:block;">
+        <input type="range" id="pos43250c93e7d5d58c21c7bb3dbbc25889" min="0" max="1" style="flex:auto; display:block;">
     </div>
 </div><script type="text/javascript">
     (function () {
@@ -251,7 +247,7 @@
             '#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0',
             '#3F51B5', '#03A9F4', '#4CAF50', '#F9CE1D', '#FF9800',
         ];
-        const uniqueId = 'dfc1a16ccbe852ca61e011c0a977745f';
+        const uniqueId = '43250c93e7d5d58c21c7bb3dbbc25889';
         const titleText = '2020-09-09 安静時、朝' ? '2020-09-09 安静時、朝' : '';
         const enabledPalyback = '' ? true : false;
         const serriesParams = JSON.parse('[{\x22name\x22: \x22val\x22, \x22showYaxis\x22:true, \x22color\x22: \x22#FF4560\x22}, {\x22name\x22: \x22gyroX\x22, \x22hidden\x22: true, \x22opposite\x22: true, \x22color\x22: \x22#775DD0\x22}, {\x22name\x22: \x22gyroY\x22,  \x22hidden\x22: true, \x22opposite\x22: true, \x22color\x22: \x22#00E396\x22}, {\x22name\x22: \x22gyroZ\x22, \x22opposite\x22: true, \x22color\x22: \x22#008FFB\x22}]');
@@ -466,7 +462,26 @@
         });
         updateSeries(1);
     })()
-</script><ul class="pa0">
+</script>
+
+
+<h2 id="雑感">雑感</h2>
+
+<p>普段も M5StickC の画面上のプロッターで部分的にはセンサー出力の様子は見ているのですが、
+あらためて俯瞰してみると「安静時でも一定の値で上下してるわけではない」ということがわかりちょっと興味深いです。</p>
+
+<p>指をケースに置いたあとに、指への力の入り加減が徐々に変化しいっているのかなと予想していますが、
+実際のところはどうなんでしょう?</p>
+
+<h2 id="元データ">元データ</h2>
+
+<ul>
+<li><a href="hrm_dev_log_2020-09-09_resting_morning.jsonl">hrm_dev_log_2020-09-09_resting_morning.jsonl</a></li>
+</ul>
+
+<p>プロッターに表示していない項目(<code>millis</code>,<code>accX</code>,<code>accY</code>,<code>accZ</code>,<code>pitch</code>,<code>roll</code>,<code>yaw</code>,<code>bpm</code>,<code>peekN</code>)も含まれています。</p>
+
+<p>データのライセンス: Copyright 2020 hankei6km <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p><ul class="pa0">
   
 </ul>
 <div class="mt6 instapaper_ignoref">
@@ -475,7 +490,19 @@
       </div>
     </div>
 
-    <aside class="w-30-l mt6-l">
+    <aside class="w-30-l mt6-l"><div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">What&#39;s in this posts</p>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#プロッター表示">プロッター表示</a></li>
+<li><a href="#雑感">雑感</a></li>
+<li><a href="#元データ">元データ</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
 
 
 
