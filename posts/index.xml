@@ -6,10 +6,25 @@
     <description>Recent content in Posts on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 13 Sep 2020 12:04:22 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2020 06:17:46 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ADXL345 x Raspberry Pi をシェルスクリプトで利用する</title>
+      <link>https://hankei6km.github.io/posts/2020-09-adxl345_raspberryi_pi_shellscript/</link>
+      <pubDate>Mon, 14 Sep 2020 06:17:46 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-09-adxl345_raspberryi_pi_shellscript/</guid>
+      <description>&lt;p&gt;表題の組み合わせでは Python を使うのが定番だと思いますが、
+&lt;a href=&#34;https://hankei6km.github.io/posts/2020-06-zero-bottole/&#34;&gt;Raspberyy Pi Zero WH に ADXL345 を取り付けてスパイスボトルに詰め込んだとき&lt;/a&gt;に
+「ちょっとしたツールとして利用するならシェルスクリプトの方が取り回しが良いかな」ということで、
+シェルスクリプトから ADXL345 を利用することにしました。&lt;/p&gt;
+
+&lt;p&gt;その後、とくにメンテナンスもしていなかったのですが、 少し前に ADXL345 関連のスクリプトを少し整理したので、
+よい機会なので  &lt;a href=&#34;https://gist.github.com/hankei6km/f1172e43701456715c1958436f860de1&#34;&gt;gist&lt;/a&gt;  に張り付けておきます。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>M5StcikC 心拍計のログ、ジョグ、握り方バリエーション</title>
