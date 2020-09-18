@@ -67,7 +67,7 @@ ApexCharts.js を使っているのでマウス操作での拡大縮小や、ア
 
 <meta itemprop="datePublished" content="2020-08-27T09:08:35&#43;00:00" />
 <meta itemprop="dateModified" content="2020-08-27T09:08:35&#43;00:00" />
-<meta itemprop="wordCount" content="1335">
+<meta itemprop="wordCount" content="1341">
 
 
 
@@ -242,11 +242,11 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
 <script src='https://cdn.jsdelivr.net/npm/apexcharts@3.20.0'></script>
 
 <div style=' width: 100%; padding-top: 20px; padding-bottom: 40px;'>
-    <div id='chart1d3a41acba4fd5f898c35a01d225856c' style='width:100%; height: 200'> </div>
+    <div id='chart55eba2be1154061d19d766216fc41e6c' style='width:100%; height: 200'> </div>
     <div style='display:flex; flex-direction: row; padding-left: 30px; padding-right: 0px;'>
         <div style='flex: initial; display:flex; flex-direction: row;'>
             <div style='flex:auto;'>
-                <button id='playback1d3a41acba4fd5f898c35a01d225856c' style='display: none; border: none;'>
+                <button id='playback55eba2be1154061d19d766216fc41e6c' style='display: none; border: none;'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#606060' width='32px'
                         height='32px'>
                         <path d='M0 0h24v24H0z' fill='none' />
@@ -256,7 +256,7 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='pause1d3a41acba4fd5f898c35a01d225856c' style='display: none; border: none;'>
+                <button id='pause55eba2be1154061d19d766216fc41e6c' style='display: none; border: none;'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#606060' width='32px'
                         height='32px'>
                         <path d='M0 0h24v24H0z' fill='none' />
@@ -266,7 +266,7 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='replay1d3a41acba4fd5f898c35a01d225856c' style='border: none;'>
+                <button id='replay55eba2be1154061d19d766216fc41e6c' style='border: none;'>
                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
                         fill="#606060" width="32px" height="32px">
                         <g>
@@ -288,7 +288,7 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='forward1d3a41acba4fd5f898c35a01d225856c' style='border: none;'>
+                <button id='forward55eba2be1154061d19d766216fc41e6c' style='border: none;'>
                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
                         fill="#606060" width="32px" height="32px">
                         <g>
@@ -308,15 +308,16 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
                 </button>
             </div>
         </div>
-        <input type="range" id="pos1d3a41acba4fd5f898c35a01d225856c" min="0" max="1" style="flex:auto; display:block;">
+        <input type="range" id="pos55eba2be1154061d19d766216fc41e6c" min="0" max="1" style="flex:auto; display:block;">
     </div>
 </div><script type="text/javascript">
     (function () {
+        "use strict"
         const palette = [ 
             '#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0',
             '#3F51B5', '#03A9F4', '#4CAF50', '#F9CE1D', '#FF9800',
         ];
-        const uniqueId = '1d3a41acba4fd5f898c35a01d225856c';
+        const uniqueId = '55eba2be1154061d19d766216fc41e6c';
         const titleText = '2020-09-02 ウォーク、日中、曇り、ケース逆手持ち BLE' ? '2020-09-02 ウォーク、日中、曇り、ケース逆手持ち BLE' : '';
         const enabledPalyback = '' ? true : false;
         const serriesParams = JSON.parse('[{\x22name\x22: \x22val\x22, \x22showYaxis\x22:true, \x22color\x22: \x22#FF4560\x22}, {\x22name\x22: \x22gyroX\x22, \x22hidden\x22: true, \x22opposite\x22: true, \x22color\x22: \x22#775DD0\x22}, {\x22name\x22: \x22gyroY\x22,  \x22hidden\x22: true, \x22opposite\x22: true, \x22color\x22: \x22#00E396\x22}, {\x22name\x22: \x22gyroZ\x22, \x22opposite\x22: true, \x22color\x22: \x22#008FFB\x22}]');
@@ -324,7 +325,7 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
         const xaxisSeriesName = 'millis' ? 'millis' : '';
         const pointAnnotationSeriesName = 'peakP' ? 'peakP' : '';
 
-        let valWindowSize = 200;
+        let valWindowSize = parseInt('200', 10);
         let valLen = 0;
         const fullSeries = serriesParams.filter(v => rawSeries.findIndex(r => r.name === v.name) >= 0).map(v => {
             const si = rawSeries.find(r => r.name === v.name);
@@ -340,6 +341,9 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
                 data: si.data,
             }
         })
+        if (valWindowSize <= 0) {
+            valWindowSize = valLen - 1;
+        }
 
         const fullPointSeries = rawSeries.find(r => r.name === pointAnnotationSeriesName);
         const pointSeries = fullPointSeries === undefined ? [] : fullPointSeries.data.map((v, i) => ({
@@ -534,11 +538,11 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
 </script>
 
 <div style=' width: 100%; padding-top: 20px; padding-bottom: 40px;'>
-    <div id='chart566c37693133750d2c5ae8350972573d' style='width:100%; height: 200'> </div>
+    <div id='chartcc92df304c2bced2463f6a706053ff56' style='width:100%; height: 200'> </div>
     <div style='display:flex; flex-direction: row; padding-left: 30px; padding-right: 0px;'>
         <div style='flex: initial; display:flex; flex-direction: row;'>
             <div style='flex:auto;'>
-                <button id='playback566c37693133750d2c5ae8350972573d' style='display: none; border: none;'>
+                <button id='playbackcc92df304c2bced2463f6a706053ff56' style='display: none; border: none;'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#606060' width='32px'
                         height='32px'>
                         <path d='M0 0h24v24H0z' fill='none' />
@@ -548,7 +552,7 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='pause566c37693133750d2c5ae8350972573d' style='display: none; border: none;'>
+                <button id='pausecc92df304c2bced2463f6a706053ff56' style='display: none; border: none;'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#606060' width='32px'
                         height='32px'>
                         <path d='M0 0h24v24H0z' fill='none' />
@@ -558,7 +562,7 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='replay566c37693133750d2c5ae8350972573d' style='border: none;'>
+                <button id='replaycc92df304c2bced2463f6a706053ff56' style='border: none;'>
                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
                         fill="#606060" width="32px" height="32px">
                         <g>
@@ -580,7 +584,7 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
                 </button>
             </div>
             <div style='flex:auto;'>
-                <button id='forward566c37693133750d2c5ae8350972573d' style='border: none;'>
+                <button id='forwardcc92df304c2bced2463f6a706053ff56' style='border: none;'>
                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
                         fill="#606060" width="32px" height="32px">
                         <g>
@@ -600,15 +604,16 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
                 </button>
             </div>
         </div>
-        <input type="range" id="pos566c37693133750d2c5ae8350972573d" min="0" max="1" style="flex:auto; display:block;">
+        <input type="range" id="poscc92df304c2bced2463f6a706053ff56" min="0" max="1" style="flex:auto; display:block;">
     </div>
 </div><script type="text/javascript">
     (function () {
+        "use strict"
         const palette = [ 
             '#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0',
             '#3F51B5', '#03A9F4', '#4CAF50', '#F9CE1D', '#FF9800',
         ];
-        const uniqueId = '566c37693133750d2c5ae8350972573d';
+        const uniqueId = 'cc92df304c2bced2463f6a706053ff56';
         const titleText = '2020-09-02 ウォーク、日中、曇り、ケース指先に沿わせる BLE' ? '2020-09-02 ウォーク、日中、曇り、ケース指先に沿わせる BLE' : '';
         const enabledPalyback = '' ? true : false;
         const serriesParams = JSON.parse('[{\x22name\x22: \x22val\x22, \x22showYaxis\x22:true, \x22color\x22: \x22#FF4560\x22}, {\x22name\x22: \x22gyroX\x22, \x22hidden\x22: true, \x22opposite\x22: true, \x22color\x22: \x22#775DD0\x22}, {\x22name\x22: \x22gyroY\x22,  \x22hidden\x22: true, \x22opposite\x22: true, \x22color\x22: \x22#00E396\x22}, {\x22name\x22: \x22gyroZ\x22, \x22opposite\x22: true, \x22color\x22: \x22#008FFB\x22}]');
@@ -616,7 +621,7 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
         const xaxisSeriesName = 'millis' ? 'millis' : '';
         const pointAnnotationSeriesName = 'peakP' ? 'peakP' : '';
 
-        let valWindowSize = 200;
+        let valWindowSize = parseInt('200', 10);
         let valLen = 0;
         const fullSeries = serriesParams.filter(v => rawSeries.findIndex(r => r.name === v.name) >= 0).map(v => {
             const si = rawSeries.find(r => r.name === v.name);
@@ -632,6 +637,9 @@ series化したデータファイルを <code>data/plotter/a1/</code> の下に�
                 data: si.data,
             }
         })
+        if (valWindowSize <= 0) {
+            valWindowSize = valLen - 1;
+        }
 
         const fullPointSeries = rawSeries.find(r => r.name === pointAnnotationSeriesName);
         const pointSeries = fullPointSeries === undefined ? [] : fullPointSeries.data.map((v, i) => ({

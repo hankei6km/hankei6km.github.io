@@ -40,7 +40,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://hankei6km.github.io/" />
 
-<meta property="og:updated_time" content="2020-09-14T06:17:46&#43;00:00"/>
+<meta property="og:updated_time" content="2020-09-18T03:38:46&#43;00:00"/>
 
 <meta itemprop="name" content="SSD: SHORT SLOW DISTANCE">
 <meta itemprop="description" content="">
@@ -143,20 +143,22 @@
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="https://hankei6km.github.io/posts/2020-09-adxl345_raspberryi_pi_shellscript/" class="color-inherit dim link">
-            ADXL345 x Raspberry Pi をシェルスクリプトで利用する
+          <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-grip-loosely-tightly-0918/" class="color-inherit dim link">
+            M5StcikC 心拍計のログ、安静時にケースをゆるく握る、強く握る
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          <p>表題の組み合わせでは Python を使うのが定番だと思いますが、
-<a href="https://hankei6km.github.io/posts/2020-06-zero-bottole/">Raspberyy Pi Zero WH に ADXL345 を取り付けてスパイスボトルに詰め込んだとき</a>に
-「ちょっとしたツールとして利用するならシェルスクリプトの方が取り回しが良いかな」ということで、
-シェルスクリプトから ADXL345 を利用することにしました。</p>
+          <p>ジョグ(体動)のときのケースを握る強さについてはログをとりましたが、
+やはり比較対象として安静時のログもあった方が良いだろうということで、
+安静時にゆるく握る、強く握る動作をしたときのログをとりました。</p>
 
-<p>その後、とくにメンテナンスもしていなかったのですが、 少し前に ADXL345 関連のスクリプトを少し整理したので、
-よい機会なので  <a href="https://gist.github.com/hankei6km/f1172e43701456715c1958436f860de1">gist</a>  に張り付けておきます。</p>
+<ul>
+<li><a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-0913/">M5StcikC 心拍計のログ、ジョグ、握り方バリエーション</a></li>
+</ul>
+
+<p>なお、「直立時」や「腕を伸ばした状態」などの組み合わせも考えられますが、数が多くなりすぎるので省略しています。</p>
         </div>
-          <a href="https://hankei6km.github.io/posts/2020-09-adxl345_raspberryi_pi_shellscript/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+          <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-grip-loosely-tightly-0918/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>
@@ -173,20 +175,25 @@
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-0913/" class="color-inherit dim link">
-            M5StcikC 心拍計のログ、ジョグ、握り方バリエーション
+          <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-bnend-stretch-arm-0918/" class="color-inherit dim link">
+            M5StcikC 心拍計のログ、直立/安静時に腕を伸ばしている、曲げている
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          <p><a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-morning/">安静時のログのときに</a>
-「力の入れ具合でセンサー出力に影響あるかな」という感じだったので、
-ジョグのときにケースの握り方に変化つけてログをとってみました。</p>
+          <blockquote>
+<p>あとは、伸ばしているときと曲げているときのセンサー出力の「高い/低い」の差は気になるので、
+ジョグ(体動)時とは別に、
+単純な直立や安静時(座っている時)に腕を曲げたり伸ばしたりした場合のログ等もとってみました。</p>
+</blockquote>
 
-<p>ジョグのときは以下のように M5StickC の液晶が内側に向くように逆手で持っています。</p>
+<p><a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-bend-stretch-arm-0916/">M5StcikC 心拍計のログ、ジョグ前後に腕を伸ばしている、曲げている</a>
+のときに ジョグ前後の違いは運動による影響が大きいと思われるという結果になったのですが、
+それでも腕の状態での差はあるようでしたので、
+さらに比較できるように運動(体動)の影響がないような状態でのログをとってみました。</p>
 
-<figure><a href="/posts/2020-09-hrm-dev-log-jog-0913/hrm_dev_log_jog_grip.jpg"><img src="/posts/2020-09-hrm-dev-log-jog-0913/hrm_dev_log_jog_grip_hu4f4a65dc45a92f55590016ca313e00b2_4115479_600x0_resize_q75_lanczos.jpg"></a></figure>
+<p>また、参考として、ジョグの後にとった(体動の影響が出ている)ログについても掲載しておきます。</p>
         </div>
-          <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-0913/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+          <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-bnend-stretch-arm-0918/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>
@@ -203,17 +210,23 @@
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-morning/" class="color-inherit dim link">
-            M5StcikC 心拍計のログ、安静時、朝
+          <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-bend-stretch-arm-0916/" class="color-inherit dim link">
+            M5StcikC 心拍計のログ、ジョグ前後に腕を伸ばしている、曲げている
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          <p>M5StcikC 心拍計のログについて、
-「そういえば、安静時のものは確認したことがなかったな」 ということでログをとってみました。</p>
+          <blockquote>
+<p>あとは、握り方とは別に「走っているときとそれ以外でセンサーの値に変動があるように見える」
+という点が気になります。
+おそらくですが、腕を「曲げてる/伸ばしている」で違いが出ているのでないかと思いますので、
+この点でも比較できるログをとっていきたいと思います。</p>
+</blockquote>
 
-<figure><a href="/posts/2020-09-hrm-dev-log-resting-morning/hrm_dev_log_resting_morning_intro.jpg"><img src="/posts/2020-09-hrm-dev-log-resting-morning/hrm_dev_log_resting_morning_intro_hu5e85c51ea85747d732f20000e28cdffb_1538979_600x0_resize_q75_lanczos.jpg"></a></figure>
+<p><a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-0913/">M5StcikC 心拍計のログ、ジョグ、握り方バリエーション</a>
+のときに 腕の曲げ伸ばしの状態でセンサー出力に変動があるように見えたので、
+比較できるように「腕を伸ばした状態からジョグ、止まってからも腕を伸ばした状態」「腕を曲げた状態からジョグ、止まってからも腕を曲げた状態」のログをとってみました。</p>
         </div>
-          <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-morning/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+          <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-bend-stretch-arm-0916/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>
@@ -230,26 +243,26 @@
         
         
           <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="https://hankei6km.github.io/posts/2020-09-adxl345_raspberryi_pi_shellscript/" class="link black dim">
+              ADXL345 x Raspberry Pi をシェルスクリプトで利用する
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-0913/" class="link black dim">
+              M5StcikC 心拍計のログ、ジョグ、握り方バリエーション
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-morning/" class="link black dim">
+              M5StcikC 心拍計のログ、安静時、朝
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
             <a href="https://hankei6km.github.io/posts/2020-09-cahced_service_uuid_may_be_used_in_web_bluetooth/" class="link black dim">
               Web Bluetooth ではキャッシュされたサービスの UUID が使われる(ような気がする)
-            </a>
-          </h2>
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="https://hankei6km.github.io/posts/2020-08-hugo_shortcode_plotter/" class="link black dim">
-              ブログ上でプロッター表示
-            </a>
-          </h2>
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="https://hankei6km.github.io/posts/2020-08-microbit-measurement-silent-measurement-deep/" class="link black dim">
-              川の中の micro:bit が深く静かに計測したデータを ambient で地図上に表示する
-            </a>
-          </h2>
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="https://hankei6km.github.io/posts/2020-07-logging-jogging-raspberry-pi-zero-wh-m5stickc/" class="link black dim">
-              ジョギングの合間に Raspberry Pi Zero WH で M5StickC のログ採取
             </a>
           </h2>
         

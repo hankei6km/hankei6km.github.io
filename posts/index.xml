@@ -6,10 +6,65 @@
     <description>Recent content in Posts on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Mon, 14 Sep 2020 06:17:46 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2020 03:38:46 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>M5StcikC 心拍計のログ、安静時にケースをゆるく握る、強く握る</title>
+      <link>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-grip-loosely-tightly-0918/</link>
+      <pubDate>Fri, 18 Sep 2020 03:38:46 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-grip-loosely-tightly-0918/</guid>
+      <description>&lt;p&gt;ジョグ(体動)のときのケースを握る強さについてはログをとりましたが、
+やはり比較対象として安静時のログもあった方が良いだろうということで、
+安静時にゆるく握る、強く握る動作をしたときのログをとりました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-0913/&#34;&gt;M5StcikC 心拍計のログ、ジョグ、握り方バリエーション&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;なお、「直立時」や「腕を伸ばした状態」などの組み合わせも考えられますが、数が多くなりすぎるので省略しています。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>M5StcikC 心拍計のログ、直立/安静時に腕を伸ばしている、曲げている</title>
+      <link>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-bnend-stretch-arm-0918/</link>
+      <pubDate>Fri, 18 Sep 2020 03:38:00 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-bnend-stretch-arm-0918/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;あとは、伸ばしているときと曲げているときのセンサー出力の「高い/低い」の差は気になるので、
+ジョグ(体動)時とは別に、
+単純な直立や安静時(座っている時)に腕を曲げたり伸ばしたりした場合のログ等もとってみました。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-bend-stretch-arm-0916/&#34;&gt;M5StcikC 心拍計のログ、ジョグ前後に腕を伸ばしている、曲げている&lt;/a&gt;
+のときに ジョグ前後の違いは運動による影響が大きいと思われるという結果になったのですが、
+それでも腕の状態での差はあるようでしたので、
+さらに比較できるように運動(体動)の影響がないような状態でのログをとってみました。&lt;/p&gt;
+
+&lt;p&gt;また、参考として、ジョグの後にとった(体動の影響が出ている)ログについても掲載しておきます。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>M5StcikC 心拍計のログ、ジョグ前後に腕を伸ばしている、曲げている</title>
+      <link>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-bend-stretch-arm-0916/</link>
+      <pubDate>Thu, 17 Sep 2020 04:08:07 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-bend-stretch-arm-0916/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;あとは、握り方とは別に「走っているときとそれ以外でセンサーの値に変動があるように見える」
+という点が気になります。
+おそらくですが、腕を「曲げてる/伸ばしている」で違いが出ているのでないかと思いますので、
+この点でも比較できるログをとっていきたいと思います。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-0913/&#34;&gt;M5StcikC 心拍計のログ、ジョグ、握り方バリエーション&lt;/a&gt;
+のときに 腕の曲げ伸ばしの状態でセンサー出力に変動があるように見えたので、
+比較できるように「腕を伸ばした状態からジョグ、止まってからも腕を伸ばした状態」「腕を曲げた状態からジョグ、止まってからも腕を曲げた状態」のログをとってみました。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>ADXL345 x Raspberry Pi をシェルスクリプトで利用する</title>

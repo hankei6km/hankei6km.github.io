@@ -3,20 +3,35 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://hankei6km.github.io/posts/2020-09-adxl345_raspberryi_pi_shellscript/</loc>
-    <lastmod>2020-09-14T06:17:46+00:00</lastmod>
+    <loc>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-grip-loosely-tightly-0918/</loc>
+    <lastmod>2020-09-18T03:38:46+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://hankei6km.github.io/posts/</loc>
-    <lastmod>2020-09-14T06:17:46+00:00</lastmod>
+    <lastmod>2020-09-18T03:38:46+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://hankei6km.github.io/</loc>
-    <lastmod>2020-09-14T06:17:46+00:00</lastmod>
+    <lastmod>2020-09-18T03:38:46+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-resting-bnend-stretch-arm-0918/</loc>
+    <lastmod>2020-09-18T03:38:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hankei6km.github.io/posts/2020-09-hrm-dev-log-jog-bend-stretch-arm-0916/</loc>
+    <lastmod>2020-09-17T04:08:07+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hankei6km.github.io/posts/2020-09-adxl345_raspberryi_pi_shellscript/</loc>
+    <lastmod>2020-09-14T06:17:46+00:00</lastmod>
   </url>
   
   <url>
