@@ -6,10 +6,28 @@
     <description>Recent content in Posts on SSD: SHORT SLOW DISTANCE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Fri, 18 Sep 2020 03:38:46 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 24 Sep 2020 01:25:19 +0000</lastBuildDate>
     
 	<atom:link href="https://hankei6km.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CodeSandbox で BLE 接続アプリのテンプレートを作ってみました</title>
+      <link>https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/</link>
+      <pubDate>Thu, 24 Sep 2020 01:25:19 +0000</pubDate>
+      
+      <guid>https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/</guid>
+      <description>&lt;p&gt;最近 &lt;a href=&#34;https://codesandbox.io/&#34;&gt;CodeSandbox&lt;/a&gt; を利用し始めたのですが、「Web Bluetooth も使えるかな?」と試してみたところ使えるようでしたので、
+BLE 接続を簡単に試せるようなテンプレートを作成してみました。
+&lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox1_fork.png&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox1_fork_hu13a9e20b0e8032319c7023647e13f172_218139_600x0_resize_lanczos_2.png&#34;&gt;&lt;/a&gt;&lt;/figure&gt;&lt;/p&gt;
+
+&lt;p&gt;これを利用すれば、ウェブブラウザだけでも以下のような簡易モニターを短時間で作成できるようになるのでないかと思います。&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    &lt;img src=&#34;https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/hrm_ble_ez.png&#34; style=&#34;width:340px&#34;&gt;&lt;/figure&gt;</description>
+    </item>
     
     <item>
       <title>M5StcikC 心拍計のログ、安静時にケースをゆるく握る、強く握る</title>

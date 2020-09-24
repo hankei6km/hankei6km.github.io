@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>CodeSandbox で BLE 接続アプリのテンプレートを作ってみました | SSD: SHORT SLOW DISTANCE</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+      <link rel="stylesheet" href="/css/custom.css">
+    
+      <link rel="stylesheet" href="/css/syntax-monokai.css">
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="CodeSandbox で BLE 接続アプリのテンプレートを作ってみました" />
+<meta property="og:description" content="最近 CodeSandbox を利用し始めたのですが、「Web Bluetooth も使えるかな?」と試してみたところ使えるようでしたので、
+BLE 接続を簡単に試せるようなテンプレートを作成してみました。
+
+
+これを利用すれば、ウェブブラウザだけでも以下のような簡易モニターを短時間で作成できるようになるのでないかと思います。
+
+
+
+
+    " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/" />
+<meta property="article:published_time" content="2020-09-24T01:25:19&#43;00:00"/>
+<meta property="article:modified_time" content="2020-09-24T01:25:19&#43;00:00"/>
+
+<meta itemprop="name" content="CodeSandbox で BLE 接続アプリのテンプレートを作ってみました">
+<meta itemprop="description" content="最近 CodeSandbox を利用し始めたのですが、「Web Bluetooth も使えるかな?」と試してみたところ使えるようでしたので、
+BLE 接続を簡単に試せるようなテンプレートを作成してみました。
+
+
+これを利用すれば、ウェブブラウザだけでも以下のような簡易モニターを短時間で作成できるようになるのでないかと思います。
+
+
+
+
+    ">
+
+
+<meta itemprop="datePublished" content="2020-09-24T01:25:19&#43;00:00" />
+<meta itemprop="dateModified" content="2020-09-24T01:25:19&#43;00:00" />
+<meta itemprop="wordCount" content="262">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CodeSandbox で BLE 接続アプリのテンプレートを作ってみました"/>
+<meta name="twitter:description" content="最近 CodeSandbox を利用し始めたのですが、「Web Bluetooth も使えるかな?」と試してみたところ使えるようでしたので、
+BLE 接続を簡単に試せるようなテンプレートを作成してみました。
+
+
+これを利用すれば、ウェブブラウザだけでも以下のような簡易モニターを短時間で作成できるようになるのでないかと思います。
+
+
+
+
+    "/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        SSD: SHORT SLOW DISTANCE
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/&amp;text=CodeSandbox%20%e3%81%a7%20BLE%20%e6%8e%a5%e7%b6%9a%e3%82%a2%e3%83%97%e3%83%aa%e3%81%ae%e3%83%86%e3%83%b3%e3%83%97%e3%83%ac%e3%83%bc%e3%83%88%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%81%be%e3%81%97%e3%81%9f" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/&amp;title=CodeSandbox%20%e3%81%a7%20BLE%20%e6%8e%a5%e7%b6%9a%e3%82%a2%e3%83%97%e3%83%aa%e3%81%ae%e3%83%86%e3%83%b3%e3%83%97%e3%83%ac%e3%83%bc%e3%83%88%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%81%be%e3%81%97%e3%81%9f" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">CodeSandbox で BLE 接続アプリのテンプレートを作ってみました</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-09-24T01:25:19Z">September 24, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>最近 <a href="https://codesandbox.io/">CodeSandbox</a> を利用し始めたのですが、「Web Bluetooth も使えるかな?」と試してみたところ使えるようでしたので、
+BLE 接続を簡単に試せるようなテンプレートを作成してみました。
+<figure><a href="/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox1_fork.png"><img src="/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox1_fork_hu13a9e20b0e8032319c7023647e13f172_218139_600x0_resize_lanczos_2.png"></a></figure></p>
+
+<p>これを利用すれば、ウェブブラウザだけでも以下のような簡易モニターを短時間で作成できるようになるのでないかと思います。</p>
+
+
+
+<figure>
+    <img src="/posts/2020-09-web_bluetooth_on_codesandbox/hrm_ble_ez.png" style="width:340px"></figure>
+
+<h2 id="利用例-micro-bit-の傾きをモニターする">利用例 (micro:bit の傾きをモニターする)</h2>
+
+<p>今回は、傾きの情報を通知するコードを <a href="https://microbit.org/">micro:bit</a> へ書き込み、それに接続できるモニタアプリを作成してみます
+(ボタンが一瞬カクンと下がりますが、これは不具合です。。。)。</p>
+
+
+
+<figure>
+    <img src="/posts/2020-09-web_bluetooth_on_codesandbox/monitor_app.gif" style="width:480px"></figure>
+
+<h3 id="前提となる知識">前提となる知識</h3>
+
+<ul>
+<li>BLE 接続で利用される GATT やサービスなどについてはとくに記述はしないので、事前にネット上の検索などで調べておいてください。</li>
+<li>micro:bit で BLE を利用する方法についてもとく記述はしないので、これも事前に調べておいてください。</li>
+<li>CodeSandbox については、 私自身も数日前から利用を始めたので大した知識はないのですが、今回の用途ならそれほど躓くことはないと思います。
+なお、少し試すだけならサインインしなくても実行できるようです
+。</li>
+<li>テンプレートでは React + Typescript + Materila UI を使っていますが、いくつかの定数と関数を１つ変更するだけなので簡単な Javascript が書ければ大丈夫です。</li>
+</ul>
+
+<h3 id="micro-bit-のコードを書き込む">micro:bit のコードを書き込む</h3>
+
+<p><a href="https://microbit.org/code/">MakeCode Editor</a> でプロジェクトを作成し以下のコードを書き込みます。</p>
+
+<figure><a href="/posts/2020-09-web_bluetooth_on_codesandbox/microbit_ble_test.png"><img src="/posts/2020-09-web_bluetooth_on_codesandbox/microbit_ble_test_hu560371dc44210d4c062b0d864d877379_74639_600x0_resize_lanczos_2.png"></a></figure>
+
+<p>GitHub にも
+<a href="https://github.com/hankei6km/microbit-ble-test">https://github.com/hankei6km/microbit-ble-test</a>
+ として書き出してはあるのですがインポートするとブロックが表示されなくなるので、スクリーンショットを掲載しておきます。</p>
+
+<h3 id="接続するための定義を決める">接続するための定義を決める</h3>
+
+<p>今回は、micro:bit 側で Bluetooth UART サービス(Nordic UART Service)
+を利用しているので、接続するための定義は自動的に以下の値に決まります。</p>
+
+<ul>
+<li>名前のプレフィックス: <code>BBC micro:bit</code></li>
+<li>サービスの UUID: <code>6e400001-b5a3-f393-e0a9-e50e24dcca9e</code></li>
+<li>キャラクタリスティックの UUID: <code>6e400002-b5a3-f393-e0a9-e50e24dcca9e</code></li>
+<li>デコーダー: 受信したバイナリデータを「文字列⇒数値」と順番に変換する処理を記述します。(具体的な記述は後で出てきます)</li>
+</ul>
+
+<h3 id="表示の定義を決める">表示の定義を決める</h3>
+
+<p>画面上部に表示されるゲージ関連の定義です。
+とくに決まりはないので、センサーの出力範囲などからお好みの値にしてください。</p>
+
+<ul>
+<li>ゲージのラベル: <code>Micro:Bit 傾き</code></li>
+<li>ゲージの最小値: <code>-180</code></li>
+<li>ゲージの最大値: <code>180</code></li>
+</ul>
+
+<h3 id="モニターを作成する">モニターを作成する</h3>
+
+<ul>
+<li>ブラウザーで <a href="https://codesandbox.io/s/bleez-nuy3c">https://codesandbox.io/s/bleez-nuy3c</a> を開きます。
+<figure><a href="/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox1_fork.png"><img src="/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox1_fork_hu13a9e20b0e8032319c7023647e13f172_218139_600x0_resize_lanczos_2.png"></a></figure></li>
+<li>右上の Fork をクリックし、処理が完了するまで少し待ちます(完了するとブラウザの右下に通知が出ます)。
+<figure><a href="/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox1_fork_click.png"><img src="/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox1_fork_click_hu8c4ee537275fd9c79873ea6e4acf126c_30631_400x0_resize_lanczos_2.png"></a></figure></li>
+<li>左側のファイルエクスプローラーから <code>src/App.tsx</code> を開きます(通常は初期状態で開かれています)。</li>
+<li><code>App.tsx</code> の <code>namePrefix</code> 等を、先に決めておいた定義へ変更します(以下のコードをコピーすればそのまま使えます)。
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">namePrefix</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BBC micro:bit&#34;</span>;
+<span style="color:#75715e">// const namePrefix: string = &#34;&#34;;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">serviceId</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;6e400001-b5a3-f393-e0a9-e50e24dcca9e&#34;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">characteristicId</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;6e400002-b5a3-f393-e0a9-e50e24dcca9e&#34;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">decoder</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">dataValue</span>: <span style="color:#66d9ef">DataView</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">dataValue</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array(<span style="color:#a6e22e">dataValue</span>.<span style="color:#a6e22e">byteLength</span>)
+    .<span style="color:#a6e22e">fill</span>(<span style="color:#ae81ff">0</span>)
+    .<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">i</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">dataValue</span>.<span style="color:#a6e22e">getUint8</span>(<span style="color:#a6e22e">i</span>));
+  <span style="color:#66d9ef">return</span> parseInt(String.<span style="color:#a6e22e">fromCharCode</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">t</span>), <span style="color:#ae81ff">10</span>);
+};
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">gaugeLabel</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Micro:Bit 傾き&#34;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">gaugeMin</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">180</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">gaugeMax</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">180</span>;</code></pre></div></li>
+<li>変更が完了すると右側の Browser ペインの表示が更新されます。
+<figure><a href="/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox3_edited.PNG"><img src="/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox3_edited_hu73c762344832f0fb4e86f9798c919695_246024_400x0_resize_lanczos_2.PNG"></a></figure></li>
+</ul>
+
+<h3 id="モニターを動かしてみる">モニターを動かしてみる</h3>
+
+<ul>
+<li>Sandbox 内では Web Bluetooth は動作しないので、Browser ペインに表示されれている URL を別のタブや BLE 対応のデバイスで開きます(最近の Android スマートフォンなら大体動くと思います)。
+<figure><a href="/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox4_url.png"><img src="/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox4_url_hu1bb2483923a04aa0d5efaa120a93f747_25671_600x0_resize_lanczos_2.png"></a></figure></li>
+<li>「CONNETCT」をクリックすると micro:bit と接続できます。なお、Android などでは位置情報の利用を確認されますが、システム側の仕様なので回避することはできないようです。</li>
+</ul>
+
+<h3 id="完成品">完成品</h3>
+
+<p>完成したモニターアプリは <a href="https://codesandbox.io/s/microbit-ble-test-p4yvq">micro:bit ble test - CodeSandbox</a> に保存してあります。</p>
+
+<h2 id="デコーダーについて">デコーダーについて</h2>
+
+<p>受信データを変換するデコーダー(<code>decoder</code>)について補足です。</p>
+
+<p>今回の例では、通知される値が文字列であるため、受信したバイナリデータを「まず文字列として扱い、さらに数値に変換する」という少し複雑な処理になっています。
+ですが、通知される値が数値であれば「型」「オフセット」「レゾリューション」などを元に簡単に記述することができます。</p>
+
+<p>たとえば、「符号ありの16bit」「オフセットは2」「レゾリューションは100(受信した数値は100で割る)」の場合の <code>decoder</code> は以下のようになります。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">decoder</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">dataValue</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DataView</span>) =&gt; <span style="color:#a6e22e">number</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">dataValue</span>) =&gt;
+  <span style="color:#a6e22e">dataValue</span>.<span style="color:#a6e22e">getInt16</span>(<span style="color:#ae81ff">2</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">100</span>;
+</code></pre></div>
+
+<h2 id="既知の問題点">既知の問題点</h2>
+
+<ul>
+<li>表示がガタつくことがある: ゲージと数値の表示の位置を雑に決めてしまったので、その影響で表示の更新時にガタつくことがあります。</li>
+<li>ブラウザの画面をバックグラウンドに回したり、スリープさせると値が通知されず、ブラウザがアクティブになった時点でまとめて通知される:
+これは最近のスマートフォンではバッテリーやセキュリティの対策としてこのような仕様になっているようです
+(最近といいつつ、記憶が正しければ webOS の最初のバージョンアップの頃からですが :-)。</li>
+</ul>
+
+<h2 id="機能追加">機能追加</h2>
+
+<p>テンプレートには簡易的な機能しかないため、機能を追加したくなるかと思います。</p>
+
+<p>リアルタイムなグラフやログの機能を追加したいといった場合には、
+ゲージの表示使っている <a href="https://apexcharts.com/">ApexCharts.js</a>
+にはグラフ内のデータを <strong>CSV としてダウンロードできる</strong> 機能があるので、
+専用 UI を作成することなく比較簡単な変更で対応できるのでないかと思います。</p>
+
+<h2 id="デプロイ">デプロイ</h2>
+
+<p>最終的にウェブアプリとして使うならどこかにデプロイしておく方が良いかと思いますが、その辺はまだ試していません。 試すことができたら追記したいと思います。</p>
+
+<h2 id="まとめ">まとめ</h2>
+
+<p>BLE は GATT の仕様によって、ちょっとしたセンサーの値を受け取るような用途の場合、元になるソースコードさえあればサービスの UUID 等を変更するだけで対応できる場面も多いように思えます。
+しかし、ソースコードを実際にビルドして利用するには開発環境を用意する必要があり、その手間がネックになっているのではと感じています。</p>
+
+<p>今回、CodeSandbox とテンプレートを利用することで環境構築などの煩雑さを回避できることがわかったので、
+このようなクラウド系の IDE をうまく利用できれば
+BLE 接続のモニターアプリ等も手軽に作成できるようになるのでないかと思います。</p>
+
+<p>なお、もう少し突っ込んで CodeSandbox を調べたいというときは 、以下のページが参考になります。</p>
+
+<ul>
+<li><a href="http://studio-andy.hatenablog.com/entry/codesandbox-vue">君は2クリックでVue appを立ち上げたことがあるか!!&lt;CodeSandboxを世の中に広めなければと思った件&gt; - Studio Andy</a></li>
+<li><a href="https://blog.kondoumh.com/entry/2018/11/18/155325">CodeSandbox : Playground 感覚な GitHub も使える Desktop PWAs 対応までしてるいいやつ - kondoumh のブログ</a></li>
+</ul><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l"><div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">What&#39;s in this posts</p>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#利用例-micro-bit-の傾きをモニターする">利用例 (micro:bit の傾きをモニターする)</a>
+<ul>
+<li><a href="#前提となる知識">前提となる知識</a></li>
+<li><a href="#micro-bit-のコードを書き込む">micro:bit のコードを書き込む</a></li>
+<li><a href="#接続するための定義を決める">接続するための定義を決める</a></li>
+<li><a href="#表示の定義を決める">表示の定義を決める</a></li>
+<li><a href="#モニターを作成する">モニターを作成する</a></li>
+<li><a href="#モニターを動かしてみる">モニターを動かしてみる</a></li>
+<li><a href="#完成品">完成品</a></li>
+</ul></li>
+<li><a href="#デコーダーについて">デコーダーについて</a></li>
+<li><a href="#既知の問題点">既知の問題点</a></li>
+<li><a href="#機能追加">機能追加</a></li>
+<li><a href="#デプロイ">デプロイ</a></li>
+<li><a href="#まとめ">まとめ</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://hankei6km.github.io/" >
+    &copy;  SSD: SHORT SLOW DISTANCE 2020 
+  </a>
+    <div>
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
