@@ -18,7 +18,7 @@
       
       <guid>https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/</guid>
       <description>&lt;p&gt;最近 &lt;a href=&#34;https://codesandbox.io/&#34;&gt;CodeSandbox&lt;/a&gt; を利用し始めたのですが、「Web Bluetooth も使えるかな?」と試してみたところ使えるようでしたので、
-BLE 接続を簡単に試せるようなテンプレートを作成してみました。
+BLE 接続を簡単に試せるような&lt;a href=&#34;https://codesandbox.io/s/bleez-nuy3c&#34;&gt;テンプレート(BleEz)&lt;/a&gt;を作成してみました。
 &lt;figure&gt;&lt;a href=&#34;https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox1_fork.png&#34;&gt;&lt;img src=&#34;https://hankei6km.github.io/posts/2020-09-web_bluetooth_on_codesandbox/codesandbox1_fork_hu13a9e20b0e8032319c7023647e13f172_218139_600x0_resize_lanczos_2.png&#34;&gt;&lt;/a&gt;&lt;/figure&gt;&lt;/p&gt;
 
 &lt;p&gt;これを利用すれば、ウェブブラウザだけでも以下のような簡易モニターを短時間で作成できるようになるのでないかと思います。&lt;/p&gt;
