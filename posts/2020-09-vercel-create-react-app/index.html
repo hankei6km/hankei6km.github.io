@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Vercel と create-react-app | SSD: SHORT SLOW DISTANCE</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+      <link rel="stylesheet" href="/css/custom.css">
+    
+      <link rel="stylesheet" href="/css/syntax-monokai.css">
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Vercel と create-react-app" />
+<meta property="og:description" content="create-react-app で作っているものを Vercel
+で利用したいと思い少し試してみたところ、
+普通にデプロイするだけで Serveless Functions
+も込みで利用することができました(Serverless Functions については Node.js で試しています)。
+
+しかし、逆に言うとデプロイしないと Serverless Functions などの挙動がわからないので、
+ローカル側である程度のデバッグができないかもう少し試してみました。
+
+
+
+
+    " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hankei6km.github.io/posts/2020-09-vercel-create-react-app/" />
+<meta property="article:published_time" content="2020-09-30T01:22:23&#43;00:00"/>
+<meta property="article:modified_time" content="2020-09-30T01:22:23&#43;00:00"/>
+
+<meta itemprop="name" content="Vercel と create-react-app">
+<meta itemprop="description" content="create-react-app で作っているものを Vercel
+で利用したいと思い少し試してみたところ、
+普通にデプロイするだけで Serveless Functions
+も込みで利用することができました(Serverless Functions については Node.js で試しています)。
+
+しかし、逆に言うとデプロイしないと Serverless Functions などの挙動がわからないので、
+ローカル側である程度のデバッグができないかもう少し試してみました。
+
+
+
+
+    ">
+
+
+<meta itemprop="datePublished" content="2020-09-30T01:22:23&#43;00:00" />
+<meta itemprop="dateModified" content="2020-09-30T01:22:23&#43;00:00" />
+<meta itemprop="wordCount" content="292">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vercel と create-react-app"/>
+<meta name="twitter:description" content="create-react-app で作っているものを Vercel
+で利用したいと思い少し試してみたところ、
+普通にデプロイするだけで Serveless Functions
+も込みで利用することができました(Serverless Functions については Node.js で試しています)。
+
+しかし、逆に言うとデプロイしないと Serverless Functions などの挙動がわからないので、
+ローカル側である程度のデバッグができないかもう少し試してみました。
+
+
+
+
+    "/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        SSD: SHORT SLOW DISTANCE
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://hankei6km.github.io/posts/2020-09-vercel-create-react-app/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://hankei6km.github.io/posts/2020-09-vercel-create-react-app/&amp;text=Vercel%20%e3%81%a8%20create-react-app" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://hankei6km.github.io/posts/2020-09-vercel-create-react-app/&amp;title=Vercel%20%e3%81%a8%20create-react-app" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Vercel と create-react-app</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-09-30T01:22:23Z">September 30, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>create-react-app で作っているものを <a href="https://vercel.com/">Vercel</a>
+で利用したいと思い少し試してみたところ、
+普通にデプロイするだけで <a href="https://vercel.com/docs/serverless-functions/introduction">Serveless Functions</a>
+も込みで利用することができました(Serverless Functions については Node.js で試しています)。</p>
+
+<p>しかし、逆に言うとデプロイしないと Serverless Functions などの挙動がわからないので、
+ローカル側である程度のデバッグができないかもう少し試してみました。</p>
+
+
+
+<figure>
+    <img src="/posts/2020-09-vercel-create-react-app/vercel_react.png" style="width:480px"></figure>
+
+<h2 id="vercel-cli-を利用">vercel cli を利用</h2>
+
+<p>デプロイ前にローカルでデバッグする方法は検索したらすぐに出てきました。
+<a href="https://vercel.com/docs/cli">vercel cli</a> の <code>dev</code>
+コマンドにローカル側で Sereverless Functions 等を実行する機能があるようです。</p>
+
+<ul>
+<li><a href="https://vercel.com/docs/cli#commands/dev">Vercel CLI Reference - Vercel # Dev</a></li>
+</ul>
+
+<blockquote>
+<p>The vercel dev command is used to replicate the Vercel deployment environment locally, allowing you to test your Serverless Functions, without requiring you to deploy each time a change is made.</p>
+</blockquote>
+
+<p><code>vercel dev</code> の詳しい内容については丸投げしてしまいますが、
+「<a href="https://ngyuki.hatenablog.com/entry/2020/07/21/232946">Vercel を素振りしてみたメモ - ngyukiの日記</a>」
+が参考になります。</p>
+
+<h2 id="vercel-dev-を-create-react-app-のプロジェクトで利用">vercel dev を create-react-app のプロジェクトで利用</h2>
+
+<p>プロジェクトのルートで <code>$ vercel dev</code> を実行すると create-react-app を検出し、
+<code>vercel dev</code> が react の development server としても実行されました<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>。
+よって、別途 <code>$ yarn start</code> を実行しなくとも、ブラウザで <code>http://localhost:3000</code>
+を開けば create-react-app で作成した内容が表示されます。</p>
+
+<p>Serverless Functions については、プロジェクト内で <code>/api/foo.ts</code>
+のようにファイルを作成すれば <code>http://localhost:3000/api/foo</code>
+にアクセスすることで <code>foo.ts</code> が実行されます。</p>
+
+<p>また create-react-app 部分のソースについては Visual Sutdio Code で
+Chrome debugger も使えました。</p>
+
+<p>しかし、Serverless Functions 部分へのデバッガー利用方法については現時点では不明です。
+<code>/api/**/*.ts</code> に記述した <code>console.log()</code> は <code>vercel dev</code> の出力として表示されたので、簡単なものであれば
+<code>console.log()</code> デバッグはできると思います
+(画像右下の <code>format: ～</code> が <code>console.log()</code> からの出力です)。</p>
+
+<figure><a href="/posts/2020-09-vercel-create-react-app/vercel_create_react_app_debug.png"><img src="/posts/2020-09-vercel-create-react-app/vercel_create_react_app_debug_hu5ae25e352bf65b65e2af52a45f3ef5e7_149328_600x0_resize_lanczos_2.png"></a></figure>
+
+<h2 id="public-url">PUBLIC_URL</h2>
+
+<p>create-react-app のプロジェクトで <code>yarn start</code> した場合、
+スクリプトファイルのパスなどに絶対パスが使われるため、
+デバッグ時になんらかの理由でサイトのパスを変更しようとすると少し手間がかかります。</p>
+
+<p>これについては、私は <code>$PUBLIC_URL</code> 環境変数でパスを指定していますが、
+<code>vercel dev</code> は <code>$PUBLIC_URL</code> を考慮しての動作はしないようなので
+<code>vercel.json</code> を作成し以下のような記述が必要となりました。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;rewrites&#34;</span>: [
+        {
+            <span style="color:#f92672">&#34;source&#34;</span>: <span style="color:#e6db74">&#34;/dev_path/api/(.*)&#34;</span>,
+            <span style="color:#f92672">&#34;destination&#34;</span>: <span style="color:#e6db74">&#34;/api/$1&#34;</span>
+        }
+    ]
+}</code></pre></div>
+
+<p>なお、<code>vercel.json</code> をプロジェクトのルートに置いておくとデプロイに影響してしまうので、注意が必要です。</p>
+
+<p>vercel dev と deploy 時で設定を変更するような方法もあるかもしれませんが、
+とりあえずはデプロイに影響を与えない場所に <code>vercel.json</code> を作成し
+ <code>$ PUBLIC_URL=/dev_path vercel dev --local-config=/path/to/vercel.json</code> のようにしています。</p>
+
+<h2 id="serverless-functions-の依存ライブラリ">Serverless Functions の依存ライブラリ</h2>
+
+<p><code>vercel dev</code> ではとくに追加設定を行わなくても、プロジェクトに
+<code>$ yarn add</code> 等でライブラリをインストールしておけば Serverless Functions
+の実行時に利用されるようです
+(<code>package.json</code> で依存関係を指定するだけでなく、実際にインストールしておく必要がありました)。</p>
+
+<p>デプロイするときには、依存関係の記述があれば通りそうですが、
+実行時に <code>yarn.lock</code> 等が作用するかは不明です。</p>
+
+<p>なお、Serverless Functions に必要な <code>@vercel/node</code>
+は明示的に依存関係を指定しなくても <code>vercel dev</code> で利用できましたが、
+デプロイ時には Build Logs にエラーが出力されました。</p>
+
+<pre><code>04:39:17.702  	NowBuildError: api/format/[op].ts(1,41): error TS2307: Cannot find module '@vercel/node'.
+</code></pre>
+
+<p>おそらくはビルド時に <code>/api</code> を除外すればよいのだとは思いますが、
+デプロイ自体は成功し Serverless Functions も動作したので今回はそのままにしてあります。</p>
+
+<h2 id="テスト">テスト</h2>
+
+<p>まだ試していませんが、<code>$ vercel dev</code> を実行したまま <code>$ yarn test</code> を実行できるとは思います。
+この辺は追記するかもしれません。</p>
+
+<h2 id="リポジトリとデプロイしたサイト">リポジトリとデプロイしたサイト</h2>
+
+<p>今回作成したリポジトリと実際にデプロイしてみたサイトです。</p>
+
+<ul>
+<li>リポジトリ: <a href="https://github.com/hankei6km/react-app-funcs">GitHub - hankei6km/react-app-funcs</a></li>
+<li>サイト: <a href="https://react-app-funcs.vercel.app/">https://react-app-funcs.vercel.app/</a></li>
+</ul>
+
+<p>※ ライセンス関連のファイルを書き出すテストも行っていたので build コマンドを override しています
+(<code>yarn run credits &amp;&amp; yarn run build</code>)</p>
+
+<h2 id="まとめ">まとめ</h2>
+
+<p>試してみる前は
+「<a href="https://nextjs.org/">Next.js</a> のプロジェクトでないと
+Serverless Functions 等をローカルで利用するのは面倒かな?」
+という風に思っていましたが、
+実際には「<code>$ yarn start</code> の代わりに <code>$ vercel dev</code> を使うだけ」な感覚で利用することができそうです。</p>
+
+<p>とはいっても、次に Vercel 上に何かつくるときは Next.js を使おうかなとは思っていますが :-)</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">初回実行時には Vercel へのログインと Vercel 上へのプロジェクトの作成(リンク)が実施されます。
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l"><div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">What&#39;s in this posts</p>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#vercel-cli-を利用">vercel cli を利用</a></li>
+<li><a href="#vercel-dev-を-create-react-app-のプロジェクトで利用">vercel dev を create-react-app のプロジェクトで利用</a></li>
+<li><a href="#public-url">PUBLIC_URL</a></li>
+<li><a href="#serverless-functions-の依存ライブラリ">Serverless Functions の依存ライブラリ</a></li>
+<li><a href="#テスト">テスト</a></li>
+<li><a href="#リポジトリとデプロイしたサイト">リポジトリとデプロイしたサイト</a></li>
+<li><a href="#まとめ">まとめ</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://hankei6km.github.io/" >
+    &copy;  SSD: SHORT SLOW DISTANCE 2020 
+  </a>
+    <div>
+
+
+
+
+<a href="https://twitter.com/hankei6km" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
